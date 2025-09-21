@@ -2,12 +2,26 @@
 
 namespace XpertEducation.GestaoConteudo.Domain
 {
-    internal class Curso : Entity, IAggregateRoot
+    public class Curso : Entity, IAggregateRoot
     {
+        public string Nome { get; private set; }
+
+        public ConteudoProgramatico ConteudoProgramatico { get; private set; }
+
         public Curso()
         {
         }
 
-        public ICollection<Aula> Aulas { get; set; }
+        public Curso(string nome, ConteudoProgramatico conteudoProgramatico)
+        {
+            Nome = nome;
+            ConteudoProgramatico = conteudoProgramatico;
+            Validar();
+        }
+
+        private void Validar()
+        {
+            Validacoes.ValidarSeVazio(Nome, "O campo Nome não pode estar vazio");
+        }
     }
 }
