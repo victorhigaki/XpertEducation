@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5AD8577F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.PagamentoFaturamento.Domain", "tests\XpertEducation.PagamentoFaturamento.Domain\XpertEducation.PagamentoFaturamento.Domain.csproj", "{514D3FBD-B3F7-4DAD-B277-BC6837D8C1D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.GestaoConteudo.Data", "src\XpertEducation.GestaoConteudo.Data\XpertEducation.GestaoConteudo.Data.csproj", "{7FB34693-7029-4177-93AC-5D6309A80B3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{514D3FBD-B3F7-4DAD-B277-BC6837D8C1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{514D3FBD-B3F7-4DAD-B277-BC6837D8C1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{514D3FBD-B3F7-4DAD-B277-BC6837D8C1D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FB34693-7029-4177-93AC-5D6309A80B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FB34693-7029-4177-93AC-5D6309A80B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FB34693-7029-4177-93AC-5D6309A80B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FB34693-7029-4177-93AC-5D6309A80B3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{4CFD69D6-48D4-40C3-B4E2-F24A883BC6B8} = {7AFD49C1-16DD-4E81-9635-76C43894798B}
 		{5AD8577F-CEEB-4EE6-A4A1-E66EFDEB884B} = {A170E80D-5788-4ACB-BAAF-6C182A54524B}
 		{514D3FBD-B3F7-4DAD-B277-BC6837D8C1D1} = {5AD8577F-CEEB-4EE6-A4A1-E66EFDEB884B}
+		{7FB34693-7029-4177-93AC-5D6309A80B3A} = {1FCB3B89-FFEF-4636-A6B3-B44F7AF2154C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A9DC02D-FD30-4459-9649-952C65FF7216}

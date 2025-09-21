@@ -1,6 +1,6 @@
-﻿using NerdStore.Core.DomainObjects;
+﻿using XpertEducation.Core.DomainObjects;
 
-namespace NerdStore.Core.Data
+namespace XpertEducation.Core.Data
 {
     public interface IRepository<T> : IDisposable where T : IAggregateRoot
     {

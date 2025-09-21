@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using XpertEducation.Core.DomainObjects;
 
-namespace NerdStore.Core.DomainObjects
+namespace XpertEducation.Core.DomainObjects
 {
     public class Validacoes
     {

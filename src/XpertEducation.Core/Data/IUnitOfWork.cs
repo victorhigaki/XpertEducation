@@ -1,4 +1,4 @@
-﻿namespace NerdStore.Core.Data
+﻿namespace XpertEducation.Core.Data
 {
     public interface IUnitOfWork
     {
