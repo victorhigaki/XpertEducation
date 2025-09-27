@@ -1,0 +1,6 @@
+@XpertEducation.WebApps.Api_HostAddress = http://localhost:5191
+
+GET {{XpertEducation.WebApps.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
