@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using XpertEducation.Core.DomainObjects;
 
 namespace XpertEducation.Core.DomainObjects
 {
