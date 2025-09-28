@@ -1,5 +1,4 @@
-﻿using XpertEducation.GestaoAlunos.Data;
-using XpertEducation.GestaoAlunos.Domain;
+﻿using XpertEducation.GestaoAlunos.Domain;
 
 namespace XpertEducation.GestaoAlunos.Application;
 

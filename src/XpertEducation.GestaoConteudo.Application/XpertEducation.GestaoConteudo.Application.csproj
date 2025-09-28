@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\XpertEducation.GestaoConteudo.Domain\XpertEducation.GestaoConteudo.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

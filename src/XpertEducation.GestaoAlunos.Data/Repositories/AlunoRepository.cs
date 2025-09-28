@@ -1,7 +1,7 @@
 ﻿using XpertEducation.Core.Data;
 using XpertEducation.GestaoAlunos.Domain;
 
-namespace XpertEducation.GestaoAlunos.Data;
+namespace XpertEducation.GestaoAlunos.Data.Repositories;
 
 public class AlunoRepository : IAlunoRepository
 {
