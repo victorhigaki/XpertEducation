@@ -5,14 +5,24 @@ namespace XpertEducation.WebApps.Api.Setups
 {
     public static class IdentityConfig
     {
-        public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, 
-            IConfiguration configuration)
+        public static WebApplicationBuilder AddIdentityConfiguration(this WebApplicationBuilder builder)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            if (builder.Environment.IsDevelopment())
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
-            return services;
+                builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+                });
+            }
+            else
+            {
+                builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                });
+            }
+
+            return builder;
         }
     }
 }
