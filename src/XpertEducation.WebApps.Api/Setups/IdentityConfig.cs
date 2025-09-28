@@ -1,28 +1,68 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using XpertEducation.GestaoAlunos.Data;
 using XpertEducation.WebApps.Api.Data;
+using XpertEducation.WebApps.Api.Models;
 
-namespace XpertEducation.WebApps.Api.Setups
+namespace XpertEducation.WebApps.Api.Setups;
+
+public static class IdentityConfig
 {
-    public static class IdentityConfig
+    public static WebApplicationBuilder AddIdentityConfiguration(this WebApplicationBuilder builder)
     {
-        public static WebApplicationBuilder AddIdentityConfiguration(this WebApplicationBuilder builder)
+        if (builder.Environment.IsDevelopment())
         {
-            if (builder.Environment.IsDevelopment())
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-                });
-            }
-            else
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddDbContext<AlunosContext>(options =>
             {
-                builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-                });
-            }
-
-            return builder;
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
         }
+        else
+        {
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddDbContext<AlunosContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+        }
+
+        builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        var JwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
+        builder.Services.Configure<JwtSettings>(JwtSettingsSection);
+        var jwtSettings = JwtSettingsSection.Get<JwtSettings>();
+        var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = true;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidAudience = jwtSettings.Audiencia,
+                ValidIssuer = jwtSettings.Emissor,
+            };
+        });
+
+        return builder;
     }
 }

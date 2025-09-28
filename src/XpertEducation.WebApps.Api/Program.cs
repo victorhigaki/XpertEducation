@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.AddIdentityConfiguration()
-       .AddSwaggerConfig();
+       .AddSwaggerConfig()
+       .ResolveDependencies();
 
 var app = builder.Build();
 

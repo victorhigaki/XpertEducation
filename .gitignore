@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/src/XpertEducation.WebApps.Api/XpertEducation.db
+/src/XpertEducation.WebApps.Api/XpertEducation.db-shm
+/src/XpertEducation.WebApps.Api/XpertEducation.db-wal
