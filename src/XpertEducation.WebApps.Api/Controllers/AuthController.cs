@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using XpertEducation.Core.Notifications;
 using XpertEducation.GestaoAlunos.Application;
 using XpertEducation.WebApps.Api.Models;
 
@@ -19,9 +20,9 @@ public class AuthController : BaseController
 
     public AuthController(SignInManager<IdentityUser> signInManager,
                           UserManager<IdentityUser> userManager,
-                          IOptions<JwtSettings> jwtSettings
-,
-                          IAlunoAppService alunoService)
+                          IOptions<JwtSettings> jwtSettings,
+                          INotifications notifications,
+                          IAlunoAppService alunoService) : base(notifications)
     {
         _signInManager = signInManager;
         _userManager = userManager;
@@ -47,10 +48,10 @@ public class AuthController : BaseController
         {
             await AddAluno(user);
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return Ok(await GerarJwt(registrarUsuario.Email));
+            return CustomResponse(await GerarJwt(registrarUsuario.Email));
         }
 
-        return Problem("Falha ao registrar o usuário");
+        return CustomResponse("Falha ao registrar o usuário");
     }
 
     [HttpPost("login")]
@@ -62,10 +63,10 @@ public class AuthController : BaseController
 
         if (result.Succeeded)
         {
-            return Ok(await GerarJwt(loginUser.Email));
+            return CustomResponse(await GerarJwt(loginUser.Email));
         }
 
-        return Problem("Usuário ou senha incorreta");
+        return CustomResponse("Usuário ou senha incorreta");
     }
 
     private async Task<string> GerarJwt(string email)
@@ -91,7 +92,7 @@ public class AuthController : BaseController
         {
             Subject = new ClaimsIdentity(claims),
             Issuer = _jwtSettings.Emissor,
-            Audience = _jwtSettings.Audiencia,
+            Audience = _jwtSettings.ValidoEm,
             Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpiracaoHoras),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         });

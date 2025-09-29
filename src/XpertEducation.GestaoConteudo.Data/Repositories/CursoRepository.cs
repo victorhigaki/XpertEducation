@@ -1,33 +1,32 @@
 ﻿using XpertEducation.Core.Data;
 using XpertEducation.GestaoConteudo.Domain;
 
-namespace XpertEducation.GestaoConteudo.Data.Repositories
+namespace XpertEducation.GestaoConteudo.Data.Repositories;
+
+public class CursoRepository : ICursoRepository
 {
-    public class CursoRepository : ICursoRepository
+    private readonly GestaoConteudoContext _context;
+
+    public CursoRepository(GestaoConteudoContext context)
     {
-        private readonly GestaoConteudoContext _context;
+        _context = context;
+    }
 
-        public CursoRepository(GestaoConteudoContext context)
-        {
-            _context = context;
-        }
-
-        public IUnitOfWork UnitOfWork => _context;
+    public IUnitOfWork UnitOfWork => _context;
 
 
-        public async Task AdicionarCursoAsync(Curso curso)
-        {
-            await _context.Cursos.AddAsync(curso);
-        }
+    public async Task AdicionarCursoAsync(Curso curso)
+    {
+        await _context.Cursos.AddAsync(curso);
+    }
 
-        public async Task AdicionarAulaAsync(Aula aula)
-        {
-            await _context.Aulas.AddAsync(aula);
-        }
+    public async Task AdicionarAulaAsync(Aula aula)
+    {
+        await _context.Aulas.AddAsync(aula);
+    }
 
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
+    public void Dispose()
+    {
+        _context?.Dispose();
     }
 }

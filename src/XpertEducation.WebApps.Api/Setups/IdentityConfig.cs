@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using XpertEducation.GestaoAlunos.Data;
+using XpertEducation.GestaoConteudo.Data;
 using XpertEducation.WebApps.Api.Data;
 using XpertEducation.WebApps.Api.Models;
 
@@ -23,6 +24,10 @@ public static class IdentityConfig
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddDbContext<GestaoConteudoContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
         }
         else
         {
@@ -32,7 +37,11 @@ public static class IdentityConfig
             });
             builder.Services.AddDbContext<AlunosContext>(options =>
             {
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddDbContext<GestaoConteudoContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
         }
 
@@ -58,7 +67,7 @@ public static class IdentityConfig
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidAudience = jwtSettings.Audiencia,
+                ValidAudience = jwtSettings.ValidoEm,
                 ValidIssuer = jwtSettings.Emissor,
             };
         });

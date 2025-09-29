@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using XpertEducation.GestaoAlunos.Data;
+using XpertEducation.GestaoConteudo.Data;
 using XpertEducation.WebApps.Api.Data;
 
 namespace XpertEducation.WebApps.Api.Setups;
@@ -29,11 +30,13 @@ public static class DbMigrationHelpers
 
         var contextId = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var alunosContext = scope.ServiceProvider.GetRequiredService<AlunosContext>();
+        var gestaoConteudoContext = scope.ServiceProvider.GetRequiredService<GestaoConteudoContext>();
 
         if (env.IsDevelopment())
         {
             await contextId.Database.MigrateAsync();
             await alunosContext.Database.MigrateAsync();
+            await gestaoConteudoContext.Database.MigrateAsync();
         }
 
         await EnsureSeedProducts(contextId);

@@ -1,27 +1,33 @@
 ﻿using XpertEducation.Core.DomainObjects;
 
-namespace XpertEducation.GestaoConteudo.Domain
+namespace XpertEducation.GestaoConteudo.Domain;
+
+public class Curso : Entity, IAggregateRoot
 {
-    public class Curso : Entity, IAggregateRoot
+    public string Nome { get; private set; }
+    public Guid AulaId { get; set; }
+
+    public ConteudoProgramatico ConteudoProgramatico { get; private set; }
+    public Aula Aula { get; private set; }
+
+    public Curso() { }
+
+    public Curso(string nome, Guid aulaId)
     {
-        public string Nome { get; private set; }
+        Nome = nome;
+        AulaId = aulaId;
+        Validar();
+    }
 
-        public ConteudoProgramatico ConteudoProgramatico { get; private set; }
+    public void AlterarAula(Aula aula)
+    {
+        Aula = aula;
+        AulaId = aula.Id;
+    }
 
-        public Curso()
-        {
-        }
-
-        public Curso(string nome, ConteudoProgramatico conteudoProgramatico)
-        {
-            Nome = nome;
-            ConteudoProgramatico = conteudoProgramatico;
-            Validar();
-        }
-
-        private void Validar()
-        {
-            Validacoes.ValidarSeVazio(Nome, "O campo Nome não pode estar vazio");
-        }
+    private void Validar()
+    {
+        Validacoes.ValidarSeVazio(Nome, "O campo Nome não pode estar vazio");
+        Validacoes.ValidarSeIgual(AulaId, Guid.Empty, "O campo AulaId do produto não pode estar vazio");
     }
 }

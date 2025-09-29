@@ -2,23 +2,19 @@
 using XpertEducation.GestaoConteudo.Domain;
 
 namespace XpertEducation.GestaoConteudo.Application.AppServices;
-public class CursoAppService : ICursoAppService
+
+public class AulaAppService : IAulaAppService
 {
     private readonly ICursoRepository _cursoRepository;
 
-    public CursoAppService(ICursoRepository cursoRepository)
+    public AulaAppService(ICursoRepository cursoRepository)
     {
         _cursoRepository = cursoRepository;
     }
 
-    public async Task CriarCurso(CursoViewModel cursoViewModel)
+    public async Task AdicionarAula(AulaViewModel aulaViewModel)
     {
-        await _cursoRepository.AdicionarCursoAsync(new Curso(cursoViewModel.Nome, Guid.NewGuid()));
+        await _cursoRepository.AdicionarAulaAsync(new Aula(aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
         await _cursoRepository.UnitOfWork.Commit();
-    }
-
-    public void Dispose()
-    {
-        _cursoRepository?.Dispose();
     }
 }
