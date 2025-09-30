@@ -2,7 +2,8 @@
 
 public class AulaViewModel
 {
-    public string Material { get; set; }
-    public string ConteudoAula { get; set; }
-    public string Titulo { get; set; }
+    public required Guid CursoId { get; set; }
+    public required string ConteudoAula { get; set; }
+    public required string Titulo { get; set; }
+    public string? Material { get; set; } = null;
 }

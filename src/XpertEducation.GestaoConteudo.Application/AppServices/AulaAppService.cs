@@ -14,7 +14,7 @@ public class AulaAppService : IAulaAppService
 
     public async Task AdicionarAula(AulaViewModel aulaViewModel)
     {
-        await _cursoRepository.AdicionarAulaAsync(new Aula(aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
+        await _cursoRepository.AdicionarAulaAsync(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
         await _cursoRepository.UnitOfWork.Commit();
     }
 }

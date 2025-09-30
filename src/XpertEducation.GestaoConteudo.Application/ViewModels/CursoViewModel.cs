@@ -4,6 +4,6 @@ namespace XpertEducation.GestaoConteudo.Application.ViewModels;
 
 public class CursoViewModel
 {
-    [Required]
-    public string Nome { get; set; }
+    public required string Nome { get; set; }
+    public required string ConteudoProgramatico { get; set; }
 }

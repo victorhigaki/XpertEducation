@@ -1,11 +1,11 @@
 ﻿
 namespace XpertEducation.Core.Notifications;
 
-public class Notificador : INotifications
+public class Notifications : INotifications
 {
     private List<Notificacao> _notificacoes;
 
-    public Notificador()
+    public Notifications()
     {
         _notificacoes = new List<Notificacao>();
     }

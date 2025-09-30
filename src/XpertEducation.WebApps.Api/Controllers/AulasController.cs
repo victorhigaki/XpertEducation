@@ -18,9 +18,9 @@ public class AulasController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AdicionarAulaAsync(AulaViewModel cursoViewModel)
+    public async Task<IActionResult> AdicionarAulaAsync(AulaViewModel aulaViewModel)
     {
-        await _aulaAppService.AdicionarAula(cursoViewModel);
-        return CustomResponse(cursoViewModel);
+        await _aulaAppService.AdicionarAula(aulaViewModel);
+        return CustomResponse(aulaViewModel);
     }
 }

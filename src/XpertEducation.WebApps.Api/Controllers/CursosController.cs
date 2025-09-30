@@ -16,11 +16,10 @@ public class CursosController : BaseController
         _cursoAppService = cursoAppService;
     }
 
-
     [HttpPost]
     public async Task<IActionResult> AdicionarCursoAsync(CursoViewModel cursoViewModel)
     {
         await _cursoAppService.CriarCurso(cursoViewModel);
-        return Ok("Curso adicionado com sucesso!");
+        return CustomResponse(cursoViewModel);
     }
 }

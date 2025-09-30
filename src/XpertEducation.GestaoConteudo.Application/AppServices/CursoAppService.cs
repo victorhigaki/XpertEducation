@@ -13,7 +13,8 @@ public class CursoAppService : ICursoAppService
 
     public async Task CriarCurso(CursoViewModel cursoViewModel)
     {
-        await _cursoRepository.AdicionarCursoAsync(new Curso(cursoViewModel.Nome, Guid.NewGuid()));
+        Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico);
+        await _cursoRepository.AdicionarCursoAsync(curso);
         await _cursoRepository.UnitOfWork.Commit();
     }
 

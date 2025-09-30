@@ -5,29 +5,23 @@ namespace XpertEducation.GestaoConteudo.Domain;
 public class Curso : Entity, IAggregateRoot
 {
     public string Nome { get; private set; }
-    public Guid AulaId { get; set; }
+    public string ConteudoProgramatico { get; private set; }
 
-    public ConteudoProgramatico ConteudoProgramatico { get; private set; }
-    public Aula Aula { get; private set; }
+    public ICollection<Aula> Aulas { get; set; }
 
     public Curso() { }
 
-    public Curso(string nome, Guid aulaId)
+    public Curso(string nome, string conteudoProgramatico)
     {
         Nome = nome;
-        AulaId = aulaId;
-        Validar();
-    }
+        ConteudoProgramatico = conteudoProgramatico;
 
-    public void AlterarAula(Aula aula)
-    {
-        Aula = aula;
-        AulaId = aula.Id;
+        Validar();
     }
 
     private void Validar()
     {
         Validacoes.ValidarSeVazio(Nome, "O campo Nome não pode estar vazio");
-        Validacoes.ValidarSeIgual(AulaId, Guid.Empty, "O campo AulaId do produto não pode estar vazio");
+        Validacoes.ValidarSeVazio(ConteudoProgramatico, "O campo Nome não pode estar vazio");
     }
 }

@@ -10,21 +10,6 @@ internal class CursoMapping : IEntityTypeConfiguration<Curso>
     {
         builder.HasKey(c => c.Id);
 
-        builder.OwnsOne(c => c.ConteudoProgramatico, cm =>
-        {
-            cm.Property(c => c.Objetivo)
-                .HasColumnName("Objetivo");
-
-            cm.Property(c => c.Conteudo)
-                .HasColumnName("Conteudo");
-
-            cm.Property(c => c.Objetivo)
-                .HasColumnName("Objetivo");
-
-            cm.Property(c => c.Metodologia)
-                .HasColumnName("Metodologia");
-        });
-
         builder.ToTable("Cursos");
     }
 }

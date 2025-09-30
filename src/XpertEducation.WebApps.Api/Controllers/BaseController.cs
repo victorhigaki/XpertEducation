@@ -5,16 +5,16 @@ namespace XpertEducation.WebApps.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BaseController : ControllerBase
+public abstract class BaseController : ControllerBase
 {
     private readonly INotifications _notifications;
 
-    public BaseController(INotifications notifications)
+    protected BaseController(INotifications notifications)
     {
         _notifications = notifications;
     }
 
-    public ActionResult CustomResponse(object result = null)
+    protected ActionResult CustomResponse(object result = null)
     {
         if (OperacaoValida())
         {

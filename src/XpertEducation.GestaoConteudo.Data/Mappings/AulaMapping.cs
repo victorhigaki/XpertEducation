@@ -10,9 +10,9 @@ public class AulaMapping : IEntityTypeConfiguration<Aula>
     {
         builder.HasKey(a => a.Id);
 
-        builder.HasMany(a=> a.Cursos)
-            .WithOne(c => c.Aula)
-            .HasForeignKey(c => c.AulaId);
+        builder.HasOne(a=> a.Curso)
+            .WithMany(c => c.Aulas)
+            .HasForeignKey(a => a.CursoId);
 
         builder.ToTable("Aulas");
     }
