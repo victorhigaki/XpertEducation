@@ -6,7 +6,7 @@ using XpertEducation.GestaoConteudo.Application.ViewModels;
 
 namespace XpertEducation.WebApps.Api.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class CursosController : BaseController
 {
     private readonly ICursoAppService _cursoAppService;

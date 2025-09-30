@@ -6,7 +6,7 @@ using XpertEducation.GestaoConteudo.Application.ViewModels;
 
 namespace XpertEducation.WebApps.Api.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class AulasController : BaseController
 {
     private readonly IAulaAppService _aulaAppService;

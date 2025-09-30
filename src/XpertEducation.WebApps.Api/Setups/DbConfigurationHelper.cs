@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using XpertEducation.GestaoAlunos.Data;
 using XpertEducation.GestaoConteudo.Data;
 using XpertEducation.WebApps.Api.Data;
+using XpertEducation.WebApps.Api.Entities;
 
 namespace XpertEducation.WebApps.Api.Setups;
 
@@ -62,7 +63,30 @@ public static class DbMigrationHelpers
             EmailConfirmed = true,
             SecurityStamp = Guid.NewGuid().ToString()
         });
-        await contextId.Admins.AddAsync(new Entities.Admin
+
+        var adminRoleId = Guid.NewGuid().ToString();
+        await contextId.Roles.AddRangeAsync(
+            new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+             new IdentityRole
+             {
+                 Id = Guid.NewGuid().ToString(),
+                 Name = "Aluno",
+                 NormalizedName = "ALUNO",
+                 ConcurrencyStamp = Guid.NewGuid().ToString()
+             });
+        await contextId.UserRoles.AddAsync(new IdentityUserRole<string>
+        {
+            RoleId = adminRoleId,
+            UserId = adminId.ToString()
+        });
+
+        await contextId.Admins.AddAsync(new Admin
         {
             Id = adminId
         });
