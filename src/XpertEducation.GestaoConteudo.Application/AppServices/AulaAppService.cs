@@ -12,9 +12,21 @@ public class AulaAppService : IAulaAppService
         _cursoRepository = cursoRepository;
     }
 
+    public async Task<CursoViewModel> ObterCursoPorId(Guid cursoId)
+    {
+        var result = await _cursoRepository.ObterCursoPorId(cursoId);
+        return new CursoViewModel
+        {
+            Id = result.Id,
+            Nome = result.Nome,
+            ConteudoProgramatico = result.ConteudoProgramatico,
+        };
+    }
+
     public async Task AdicionarAula(AulaViewModel aulaViewModel)
     {
         await _cursoRepository.AdicionarAulaAsync(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
         await _cursoRepository.UnitOfWork.Commit();
     }
+
 }

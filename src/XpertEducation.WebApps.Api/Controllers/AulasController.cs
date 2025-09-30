@@ -11,7 +11,7 @@ public class AulasController : BaseController
 {
     private readonly IAulaAppService _aulaAppService;
 
-    public AulasController(IAulaAppService aulaAppService, 
+    public AulasController(IAulaAppService aulaAppService,
                            INotifications notifications) : base(notifications)
     {
         _aulaAppService = aulaAppService;
@@ -20,6 +20,9 @@ public class AulasController : BaseController
     [HttpPost]
     public async Task<IActionResult> AdicionarAulaAsync(AulaViewModel aulaViewModel)
     {
+        var curso = _aulaAppService.ObterCursoPorId(aulaViewModel.CursoId);
+        if (curso == null) return BadRequest();
+
         await _aulaAppService.AdicionarAula(aulaViewModel);
         return CustomResponse(aulaViewModel);
     }
