@@ -105,6 +105,7 @@ public class AuthController : BaseController
     private async Task AddAluno(IdentityUser user)
     {
         var userId = await _userManager.GetUserIdAsync(user);
+        await _userManager.AddToRoleAsync(user, "Aluno");
         await _alunoService.Adicionar(new AlunoViewModel { Id = new Guid(userId) });
     }
 }
