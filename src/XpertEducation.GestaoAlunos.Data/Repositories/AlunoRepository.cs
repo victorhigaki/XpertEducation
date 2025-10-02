@@ -1,5 +1,6 @@
 ﻿using XpertEducation.Core.Data;
-using XpertEducation.GestaoAlunos.Domain;
+using XpertEducation.GestaoAlunos.Domain.Models;
+using XpertEducation.GestaoAlunos.Domain.Repositories;
 
 namespace XpertEducation.GestaoAlunos.Data.Repositories;
 
@@ -17,6 +18,11 @@ public class AlunoRepository : IAlunoRepository
     public async Task Adicionar(Aluno aluno)
     {
         await _context.Alunos.AddAsync(aluno);
+    }
+
+    public async Task AdicionarMatriculaAsync(Matricula matricula)
+    {
+        await _context.Matriculas.AddAsync(matricula);
     }
 
     public void Dispose()

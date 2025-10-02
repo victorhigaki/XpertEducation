@@ -33,6 +33,7 @@
     <ProjectReference Include="..\XpertEducation.GestaoAlunos.Application\XpertEducation.GestaoAlunos.Application.csproj" />
     <ProjectReference Include="..\XpertEducation.GestaoConteudo.Application\XpertEducation.GestaoConteudo.Application.csproj" />
     <ProjectReference Include="..\XpertEducation.GestaoConteudo.Data\XpertEducation.GestaoConteudo.Data.csproj" />
+    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Application\XpertEducation.PagamentoFaturamento.Application.csproj" />
   </ItemGroup>
 
 </Project>

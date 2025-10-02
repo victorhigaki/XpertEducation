@@ -1,4 +1,4 @@
-﻿namespace XpertEducation.GestaoAlunos.Application;
+﻿namespace XpertEducation.GestaoAlunos.Application.ViewModels;
 
 public class AlunoViewModel
 {

@@ -11,7 +11,18 @@ public class CursoAppService : ICursoAppService
         _cursoRepository = cursoRepository;
     }
 
-    public async Task CriarCurso(CursoViewModel cursoViewModel)
+    public async Task<CursoViewModel> ObterCursoPorIdAsync(Guid id)
+    {
+        var curso = await _cursoRepository.ObterCursoPorIdAsync(id);
+        return new CursoViewModel
+        {
+            Id = curso.Id,
+            Nome = curso.Nome,
+            ConteudoProgramatico = curso.ConteudoProgramatico
+        };
+    }
+
+    public async Task AdicionarCursoAsync(CursoViewModel cursoViewModel)
     {
         Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico);
         await _cursoRepository.AdicionarCursoAsync(curso);
@@ -22,4 +33,5 @@ public class CursoAppService : ICursoAppService
     {
         _cursoRepository?.Dispose();
     }
+
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using XpertEducation.Core.Data;
-using XpertEducation.GestaoAlunos.Domain;
+using XpertEducation.GestaoAlunos.Domain.Models;
 
 namespace XpertEducation.GestaoAlunos.Data;
 
@@ -11,6 +11,7 @@ public class AlunosContext : DbContext, IUnitOfWork
     }
 
     public DbSet<Aluno> Alunos { get; set; }
+    public DbSet<Matricula> Matriculas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,6 +1,6 @@
 ﻿using XpertEducation.Core.DomainObjects;
 
-namespace XpertEducation.GestaoAlunos.Domain;
+namespace XpertEducation.GestaoAlunos.Domain.Models;
 
 public class Aluno : Entity, IAggregateRoot
 {

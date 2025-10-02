@@ -14,7 +14,7 @@ public class CursoRepository : ICursoRepository
 
     public IUnitOfWork UnitOfWork => _context;
 
-    public async Task<Curso?> ObterCursoPorId(Guid id)
+    public async Task<Curso?> ObterCursoPorIdAsync(Guid id)
     {
         return await _context.Cursos.FindAsync(id);
     }

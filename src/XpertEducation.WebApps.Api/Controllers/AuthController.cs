@@ -6,7 +6,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using XpertEducation.Core.Notifications;
-using XpertEducation.GestaoAlunos.Application;
+using XpertEducation.GestaoAlunos.Application.AppServices;
+using XpertEducation.GestaoAlunos.Application.ViewModels;
 using XpertEducation.WebApps.Api.Models;
 
 namespace XpertEducation.WebApps.Api.Controllers;
@@ -106,6 +107,6 @@ public class AuthController : BaseController
     {
         var userId = await _userManager.GetUserIdAsync(user);
         await _userManager.AddToRoleAsync(user, "Aluno");
-        await _alunoService.Adicionar(new AlunoViewModel { Id = new Guid(userId) });
+        await _alunoService.AdicionarAsync(new AlunoViewModel { Id = new Guid(userId) });
     }
 }

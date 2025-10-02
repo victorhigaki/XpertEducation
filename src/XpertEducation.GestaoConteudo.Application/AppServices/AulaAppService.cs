@@ -14,7 +14,7 @@ public class AulaAppService : IAulaAppService
 
     public async Task<CursoViewModel> ObterCursoPorId(Guid cursoId)
     {
-        var result = await _cursoRepository.ObterCursoPorId(cursoId);
+        var result = await _cursoRepository.ObterCursoPorIdAsync(cursoId);
         return new CursoViewModel
         {
             Id = result.Id,

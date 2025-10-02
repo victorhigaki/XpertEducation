@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using XpertEducation.WebApps.Api.Setups;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddControllers();
 builder.AddIdentityConfiguration()
        .AddSwaggerConfig()
        .ResolveDependencies();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 
 var app = builder.Build();
 
