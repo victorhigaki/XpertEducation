@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using XpertEducation.Core.Notifications;
+using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.GestaoConteudo.Application.ViewModels;
 
@@ -12,7 +13,8 @@ public class AulasController : BaseController
     private readonly IAulaAppService _aulaAppService;
 
     public AulasController(IAulaAppService aulaAppService,
-                           INotifications notifications) : base(notifications)
+                           INotificationHandler<DomainNotification> notifications,
+                           MediatorHandler mediatorHandler) : base(notifications, mediatorHandler)
     {
         _aulaAppService = aulaAppService;
     }

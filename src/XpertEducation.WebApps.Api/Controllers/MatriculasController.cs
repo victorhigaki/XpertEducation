@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using XpertEducation.Core.Communication.Mediator;
-using XpertEducation.Core.Notifications;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Application.Commands;
-using XpertEducation.GestaoAlunos.Application.ViewModels;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.WebApps.Api.Extensions;
 
@@ -21,10 +20,10 @@ public class MatriculasController : BaseController
     private Guid AlunoId { get; set; }
 
     public MatriculasController(IAlunoAppService alunoAppService,
-        INotifications notifications,
+        INotificationHandler<DomainNotification> notifications,
         ICursoAppService cursoAppService,
         IMediatorHandler mediatorHandler,
-        IAppIdentityUser appIdentityUser) : base(notifications)
+        IAppIdentityUser appIdentityUser) : base(notifications, mediatorHandler)
     {
         _alunoAppService = alunoAppService;
         _cursoAppService = cursoAppService;
@@ -43,7 +42,7 @@ public class MatriculasController : BaseController
             return BadRequest("Curso não encontrado.");
         }
 
-        var command = new AdicionarAlunoCursoCommand(AlunoId, curso.Id, curso.Nome);
+        var command = new AdicionarMatriculaCommand(AlunoId, curso.Id, curso.Nome);
         await _mediatorHandler.EnviarComando(command);
 
         return CustomResponse();

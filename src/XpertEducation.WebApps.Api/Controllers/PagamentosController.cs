@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using XpertEducation.Core.Notifications;
+using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Domain.Enums;
 using XpertEducation.GestaoConteudo.Application.AppServices;
@@ -16,7 +17,8 @@ public class PagamentosController : BaseController
 
     public PagamentosController(IAulaAppService aulaAppService,
                                 IAlunoAppService alunoAppService,
-                                INotifications notifications) : base(notifications)
+                                INotificationHandler<DomainNotification> notifications,
+                                IMediatorHandler mediatorHandler) : base(notifications, mediatorHandler)
     {
         _aulaAppService = aulaAppService;
         _alunoAppService = alunoAppService;

@@ -1,5 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using XpertEducation.Core.Notifications;
+using XpertEducation.Core.Communication.Mediator;
+using XpertEducation.Core.Messages.Notifications;
 
 namespace XpertEducation.WebApps.Api.Controllers;
 
@@ -7,11 +9,14 @@ namespace XpertEducation.WebApps.Api.Controllers;
 [Route("api/[controller]")]
 public abstract class BaseController : ControllerBase
 {
-    private readonly INotifications _notifications;
+    private readonly DomainNotificationHandler _notifications;
+    private readonly IMediatorHandler _mediatorHandler;
 
-    protected BaseController(INotifications notifications)
+    protected BaseController(INotificationHandler<DomainNotification> notifications,
+                             IMediatorHandler mediatorHandler)
     {
-        _notifications = notifications;
+        _notifications = (DomainNotificationHandler)notifications;
+        _mediatorHandler = mediatorHandler;
     }
 
     protected ActionResult CustomResponse(object result = null)
@@ -28,12 +33,22 @@ public abstract class BaseController : ControllerBase
         return BadRequest(new
         {
             success = false,
-            errors = _notifications.ObterNotificacoes().Select(n => n.Mensagem)
+            errors = ObterMensagensErro()
         });
     }
 
     protected bool OperacaoValida()
     {
         return !_notifications.TemNotificacao();
+    }
+
+    protected IEnumerable<string> ObterMensagensErro()
+    {
+        return _notifications.ObterNotificacoes().Select(c => c.Value).ToList();
+    }
+
+    protected void NotificarErro(string codigo, string mensagem)
+    {
+        _mediatorHandler.PublicarNotificacao(new DomainNotification(codigo, mensagem));
     }
 }

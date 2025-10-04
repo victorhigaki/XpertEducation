@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using XpertEducation.Core.Notifications;
+using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Application.ViewModels;
 using XpertEducation.WebApps.Api.Models;
@@ -22,8 +23,9 @@ public class AuthController : BaseController
     public AuthController(SignInManager<IdentityUser> signInManager,
                           UserManager<IdentityUser> userManager,
                           IOptions<JwtSettings> jwtSettings,
-                          INotifications notifications,
-                          IAlunoAppService alunoService) : base(notifications)
+                          INotificationHandler<DomainNotification> notifications,
+                          IMediatorHandler mediatorHandler,
+                          IAlunoAppService alunoService) : base(notifications, mediatorHandler)
     {
         _signInManager = signInManager;
         _userManager = userManager;

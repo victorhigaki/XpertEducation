@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using XpertEducation.Core.Communication.Mediator;
-using XpertEducation.Core.Notifications;
+using XpertEducation.Core.Messages.Notifications;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Application.Commands;
 using XpertEducation.GestaoAlunos.Data;
@@ -20,7 +20,8 @@ public static class DependencyInjectionConfig
     {
         builder.Services.AddScoped<IMediatorHandler, MediatorHandler>();
 
-        builder.Services.AddScoped<INotifications, Notifications>();
+        builder.Services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+
         builder.Services.AddScoped<IAppIdentityUser, AppIdentityUser>();
 
         builder.Services.AddScoped<IAlunoAppService, AlunoAppService>();
@@ -32,7 +33,7 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<IAulaAppService, AulaAppService>();
         builder.Services.AddScoped<GestaoConteudoContext>();
 
-        builder.Services.AddScoped<IRequestHandler<AdicionarAlunoCursoCommand, bool>, MatriculaCommandHandler>();
+        builder.Services.AddScoped<IRequestHandler<AdicionarMatriculaCommand, bool>, MatriculaCommandHandler>();
 
         return builder;
     }
