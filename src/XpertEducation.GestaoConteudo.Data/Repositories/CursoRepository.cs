@@ -1,4 +1,5 @@
-﻿using XpertEducation.Core.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using XpertEducation.Core.Data;
 using XpertEducation.GestaoConteudo.Domain;
 
 namespace XpertEducation.GestaoConteudo.Data.Repositories;
@@ -14,12 +15,17 @@ public class CursoRepository : ICursoRepository
 
     public IUnitOfWork UnitOfWork => _context;
 
-    public async Task<Curso?> ObterCursoPorIdAsync(Guid id)
+    public async Task<IEnumerable<Curso>?> ObterTodosAsync()
+    {
+        return await _context.Cursos.ToListAsync();
+    }
+
+    public async Task<Curso?> ObterPorIdAsync(Guid id)
     {
         return await _context.Cursos.FindAsync(id);
     }
 
-    public async Task AdicionarCursoAsync(Curso curso)
+    public async Task AdicionarAsync(Curso curso)
     {
         await _context.Cursos.AddAsync(curso);
     }

@@ -19,10 +19,17 @@ public class CursosController : BaseController
         _cursoAppService = cursoAppService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> ObterTodosCursoAsync()
+    {
+        var result = await _cursoAppService.ObterTodosAsync();
+        return CustomResponse(result);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AdicionarCursoAsync(CursoViewModel cursoViewModel)
     {
-        await _cursoAppService.AdicionarCursoAsync(cursoViewModel);
+        await _cursoAppService.AdicionarAsync(cursoViewModel);
         return CustomResponse(cursoViewModel);
     }
 }

@@ -33,10 +33,17 @@ public class MatriculasController : BaseController
         AlunoId = appIdentityUser.GetUserId();
     }
 
-    [HttpPost("matricula-aluno")]
+    [HttpGet]
+    public async Task<IActionResult> Teste()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("matricula-aluno")]
     public async Task<IActionResult> MatriculaAlunoAsync(MatriculaAlunoViewModel matriculaAlunoViewModel)
     {
-        var curso = await _cursoAppService.ObterCursoPorIdAsync(matriculaAlunoViewModel.CursoId);
+        var curso = await _cursoAppService.ObterPorIdAsync(matriculaAlunoViewModel.CursoId);
         if (curso == null)
         {
             return CustomResponse("Curso não encontrado.");

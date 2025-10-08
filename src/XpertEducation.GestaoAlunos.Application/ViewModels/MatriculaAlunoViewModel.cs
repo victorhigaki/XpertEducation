@@ -1,7 +1,6 @@
-﻿namespace XpertEducation.GestaoAlunos.Application.ViewModels
+﻿namespace XpertEducation.GestaoAlunos.Application.ViewModels;
+
+public class MatriculaAlunoViewModel
 {
-    public class MatriculaAlunoViewModel
-    {
-        public Guid CursoId { get; internal set; }
-    }
+    public Guid CursoId { get; set; }
 }

@@ -14,7 +14,7 @@ public class AulasController : BaseController
 
     public AulasController(IAulaAppService aulaAppService,
                            INotificationHandler<DomainNotification> notifications,
-                           MediatorHandler mediatorHandler) : base(notifications, mediatorHandler)
+                           IMediatorHandler mediatorHandler) : base(notifications, mediatorHandler)
     {
         _aulaAppService = aulaAppService;
     }
