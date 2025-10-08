@@ -29,5 +29,10 @@ public class AlunoRepository : IAlunoRepository
     {
         _context.Dispose();
     }
+
+    public Task<Matricula?> ObterMatriculaPorIdAsync(Guid matriculaId)
+    {
+        throw new NotImplementedException();
+    }
 }
 

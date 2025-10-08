@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.Core.Messages;
-using XpertEducation.GestaoAlunos.Application.Events;
 using XpertEducation.GestaoAlunos.Domain.Models;
 using XpertEducation.GestaoAlunos.Domain.Repositories;
 
 namespace XpertEducation.GestaoAlunos.Application.Commands;
 public class MatriculaCommandHandler :
-    IRequestHandler<AdicionarAlunoCursoCommand, bool>
+    IRequestHandler<MatriculaAlunoCommand, bool>,
+    IRequestHandler<RealizarPagamentoMatriculaCommand, bool>
 {
     private readonly IMediatorHandler _mediatorHandler;
     private readonly IAlunoRepository _alunoRepository;
@@ -19,13 +19,18 @@ public class MatriculaCommandHandler :
         _alunoRepository = alunoRepository;
     }
 
-    public async Task<bool> Handle(AdicionarAlunoCursoCommand message, CancellationToken cancellationToken)
+    public async Task<bool> Handle(MatriculaAlunoCommand message, CancellationToken cancellationToken)
     {
         if (!ValidarComando(message)) return false;
-        var matricula = new Matricula(message.AlunoId, message.CursoId, message.CursoNome);
+        var matricula = new Matricula(message.AlunoId, message.CursoId);
         await _alunoRepository.AdicionarMatriculaAsync(matricula);
         //matricula.AdicionarEvento(new MatriculaRealizadaEvent(matricula.Id, matricula.CursoId, matricula.AlunoId, matricula.CursoNome, matricula.Status));
         return await _alunoRepository.UnitOfWork.Commit();
+    }
+
+    public async Task<bool> Handle(RealizarPagamentoMatriculaCommand request, CancellationToken cancellationToken)
+    {
+        return true;
     }
 
     private bool ValidarComando(Command message)

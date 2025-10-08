@@ -17,6 +17,11 @@ public class MediatorHandler : IMediatorHandler
         return await _mediator.Send(comando);
     }
 
+    public Task PublicarEvento<T>(T evento) where T : Event
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task PublicarNotificacao<T>(T notificacao) where T : DomainNotification
     {
         await _mediator.Publish(notificacao);

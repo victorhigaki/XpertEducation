@@ -7,19 +7,23 @@ public class Matricula : Entity
 {
     public Guid AlunoId { get; set; }
     public Guid CursoId { get; set; }
-    public string CursoNome { get; set; }
+
     public MatriculaStatus Status { get; set; }
 
     public Matricula() { }
 
-    public Matricula(Guid alunoId, Guid cursoId, string cursoNome)
+    public Matricula(Guid alunoId, Guid cursoId)
     {
         Id = Guid.NewGuid();
         AlunoId = alunoId;
         CursoId = cursoId;
-        CursoNome = cursoNome;
         Status = MatriculaStatus.PendentePagamento;
         Validar();
+    }
+
+    public void MatriculaPaga()
+    {
+        Status = MatriculaStatus.Pago;
     }
 
     private void Validar()

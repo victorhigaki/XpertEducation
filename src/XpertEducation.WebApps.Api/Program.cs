@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
 using XpertEducation.WebApps.Api.Setups;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +10,11 @@ builder.AddIdentityConfiguration()
        .AddSwaggerConfig()
        .ResolveDependencies();
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.LicenseKey = builder.Configuration["LuckyPenny"];
+    cfg.RegisterServicesFromAssemblyContaining<Program>();
+});
 
 var app = builder.Build();
 

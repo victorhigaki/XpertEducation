@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Application.Commands;
+using XpertEducation.GestaoAlunos.Application.ViewModels;
+using XpertEducation.GestaoAlunos.Domain.Enums;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.WebApps.Api.Extensions;
 
@@ -15,7 +17,6 @@ public class MatriculasController : BaseController
     private readonly IAlunoAppService _alunoAppService;
     private readonly ICursoAppService _cursoAppService;
     private readonly IMediatorHandler _mediatorHandler;
-    private readonly IAppIdentityUser _appIdentityUser;
 
     private Guid AlunoId { get; set; }
 
@@ -28,23 +29,35 @@ public class MatriculasController : BaseController
         _alunoAppService = alunoAppService;
         _cursoAppService = cursoAppService;
         _mediatorHandler = mediatorHandler;
-        _appIdentityUser = appIdentityUser;
 
         AlunoId = appIdentityUser.GetUserId();
     }
 
-    [HttpPost("realizar-matricula/{cursoId:guid}")]
-    public async Task<IActionResult> RealizarMatriculaAsync(Guid cursoId)
+    [HttpPost("matricula-aluno")]
+    public async Task<IActionResult> MatriculaAlunoAsync(MatriculaAlunoViewModel matriculaAlunoViewModel)
     {
-        var curso = await _cursoAppService.ObterCursoPorIdAsync(cursoId);
+        var curso = await _cursoAppService.ObterCursoPorIdAsync(matriculaAlunoViewModel.CursoId);
         if (curso == null)
         {
-            return BadRequest("Curso não encontrado.");
+            return CustomResponse("Curso não encontrado.");
         }
 
-        var command = new AdicionarMatriculaCommand(AlunoId, curso.Id, curso.Nome);
+        var command = new MatriculaAlunoCommand(AlunoId, curso.Id);
         await _mediatorHandler.EnviarComando(command);
 
+        return CustomResponse();
+    }
+
+    [HttpPost("realizar-pagamento-matricula")]
+    public async Task<ActionResult> RealizarPagamentoMatricula(PagamentoMatriculaViewModel pagamentoMatriculaViewModel)
+    {
+        var matricula = await _alunoAppService.ObterMatriculaPorIdAsync(pagamentoMatriculaViewModel.MatriculaId);
+        if (matricula.Status != MatriculaStatus.PendentePagamento)
+        {
+            return CustomResponse("Esta ação não pode ser executada");
+        }
+
+        await _mediatorHandler.EnviarComando(new RealizarPagamentoMatriculaCommand(pagamentoMatriculaViewModel.MatriculaId, AlunoId));
         return CustomResponse();
     }
 }

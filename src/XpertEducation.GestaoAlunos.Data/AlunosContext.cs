@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using XpertEducation.Core.Data;
+using XpertEducation.Core.Messages;
 using XpertEducation.GestaoAlunos.Domain.Models;
 
 namespace XpertEducation.GestaoAlunos.Data;
@@ -22,7 +23,13 @@ public class AlunosContext : DbContext, IUnitOfWork
             property.SetColumnType("varchar(100)");
         }
 
+        modelBuilder.Ignore<Event>();
+
+        foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AlunosContext).Assembly);
+
+        base.OnModelCreating(modelBuilder);
     }
 
     public async Task<bool> Commit()

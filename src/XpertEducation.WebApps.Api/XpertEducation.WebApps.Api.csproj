@@ -33,7 +33,10 @@
     <ProjectReference Include="..\XpertEducation.GestaoAlunos.Application\XpertEducation.GestaoAlunos.Application.csproj" />
     <ProjectReference Include="..\XpertEducation.GestaoConteudo.Application\XpertEducation.GestaoConteudo.Application.csproj" />
     <ProjectReference Include="..\XpertEducation.GestaoConteudo.Data\XpertEducation.GestaoConteudo.Data.csproj" />
-    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Application\XpertEducation.PagamentoFaturamento.Application.csproj" />
+    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.AntiCorruption\XpertEducation.PagamentoFaturamento.AntiCorruption.csproj" />
+    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Application\XpertEducation.PagamentoFaturamento.Business.csproj" />
+    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Business\XpertEducation.PagamentoFaturamento.Business.csproj" />
+    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Data\XpertEducation.PagamentoFaturamento.Data.csproj" />
   </ItemGroup>
 
 </Project>

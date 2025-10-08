@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using XpertEducation.GestaoAlunos.Data;
 using XpertEducation.GestaoConteudo.Data;
+using XpertEducation.PagamentoFaturamento.Data;
 using XpertEducation.WebApps.Api.Data;
 using XpertEducation.WebApps.Api.Models;
 
@@ -28,6 +29,10 @@ public static class IdentityConfig
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddDbContext<PagamentoContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
         }
         else
         {
@@ -40,6 +45,10 @@ public static class IdentityConfig
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddDbContext<GestaoConteudoContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddDbContext<PagamentoContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\XpertEducation.Core\XpertEducation.Core.csproj" />
+    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Business\XpertEducation.PagamentoFaturamento.Business.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using XpertEducation.GestaoAlunos.Data;
 using XpertEducation.GestaoConteudo.Data;
+using XpertEducation.PagamentoFaturamento.Data;
 using XpertEducation.WebApps.Api.Data;
 using XpertEducation.WebApps.Api.Entities;
 
@@ -32,6 +33,7 @@ public static class DbMigrationHelpers
         var contextId = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var alunosContext = scope.ServiceProvider.GetRequiredService<AlunosContext>();
         var gestaoConteudoContext = scope.ServiceProvider.GetRequiredService<GestaoConteudoContext>();
+        var pagamentoContext = scope.ServiceProvider.GetRequiredService<PagamentoContext>();
 
         if (env.IsDevelopment())
         {
