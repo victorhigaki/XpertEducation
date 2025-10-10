@@ -65,4 +65,9 @@ public abstract class Entity
     {
         return $"{GetType().Name} [Id={Id}]";
     }
+
+    public virtual bool EhValido()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace XpertEducation.PagamentoFaturamento.Business.Models
 {
-    public class Pedido
+    public class Matricula
     {
         public Guid Id { get; set; }
         public decimal Valor { get; set; }

@@ -40,6 +40,7 @@ public static class DbMigrationHelpers
             await contextId.Database.MigrateAsync();
             await alunosContext.Database.MigrateAsync();
             await gestaoConteudoContext.Database.MigrateAsync();
+            await pagamentoContext.Database.MigrateAsync();
         }
 
         await EnsureSeedProducts(contextId);

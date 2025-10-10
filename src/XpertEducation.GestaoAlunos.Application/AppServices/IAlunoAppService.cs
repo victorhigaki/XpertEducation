@@ -5,5 +5,5 @@ namespace XpertEducation.GestaoAlunos.Application.AppServices;
 public interface IAlunoAppService : IDisposable
 {
     Task AdicionarAsync(AlunoViewModel alunoViewModel);
-    Task<MatriculaViewModel> ObterMatriculaPorIdAsync(Guid matriculaId);
+    Task<MatriculaViewModel> ObterMatriculaPorAlunoId(Guid alunoId);
 }

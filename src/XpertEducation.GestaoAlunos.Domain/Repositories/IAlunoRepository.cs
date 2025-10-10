@@ -6,6 +6,7 @@ namespace XpertEducation.GestaoAlunos.Domain.Repositories;
 public interface IAlunoRepository : IRepository<Aluno>
 {
     Task Adicionar(Aluno aluno);
-    Task AdicionarMatriculaAsync(Matricula matricula);
-    Task<Matricula?> ObterMatriculaPorIdAsync(Guid matriculaId);
+    Task<Matricula?> ObterMatriculaPorAlunoId(Guid matriculaId);
+    void AdicionarMatricula(Matricula matricula);
+    void AtualizarMatricula(Matricula matricula);
 }

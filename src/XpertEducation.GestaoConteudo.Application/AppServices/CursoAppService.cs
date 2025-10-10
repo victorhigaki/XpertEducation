@@ -22,6 +22,7 @@ public class CursoAppService : ICursoAppService
             {
                 Id = curso.Id,
                 Nome = curso.Nome,
+                Valor = curso.Valor,                
                 ConteudoProgramatico = curso.ConteudoProgramatico
             });
         });
@@ -36,13 +37,14 @@ public class CursoAppService : ICursoAppService
         {
             Id = curso.Id,
             Nome = curso.Nome,
-            ConteudoProgramatico = curso.ConteudoProgramatico
+            ConteudoProgramatico = curso.ConteudoProgramatico,
+            Valor = curso.Valor,
         };
     }
 
     public async Task AdicionarAsync(CursoViewModel cursoViewModel)
     {
-        Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico);
+        Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico, cursoViewModel.Valor);
         await _cursoRepository.AdicionarAsync(curso);
         await _cursoRepository.UnitOfWork.Commit();
     }

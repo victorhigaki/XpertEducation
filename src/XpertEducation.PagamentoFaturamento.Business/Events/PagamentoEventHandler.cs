@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using XpertEducation.Core.Messages.NewFolder;
+using XpertEducation.Core.Messages.IntegrationEvents;
 using XpertEducation.PagamentoFaturamento.Business.Models;
 using XpertEducation.PagamentoFaturamento.Business.Services;
 
 namespace XpertEducation.PagamentoFaturamento.Business.Events;
 
-public class PagamentoEventHandler : INotificationHandler<ConfirmadoEvent>
+public class PagamentoEventHandler : INotificationHandler<MatriculaIniciarPagamentoEvent>
 {
     private readonly IPagamentoService _pagamentoService;
 
@@ -14,13 +14,13 @@ public class PagamentoEventHandler : INotificationHandler<ConfirmadoEvent>
         _pagamentoService = pagamentoService;
     }
 
-    public async Task Handle(ConfirmadoEvent message, CancellationToken cancellationToken)
+    public async Task Handle(MatriculaIniciarPagamentoEvent message, CancellationToken cancellationToken)
     {
-        var pedido = new PagamentoPedido
+        var pagamentoPedido = new PagamentoPedido
         {
-            PedidoId = message.PedidoId,
-            ClienteId = message.ClienteId,
-            Total = message.Total,
+            MatriculaId = message.MatriculaId,
+            ClienteId = message.AlunoId,
+            Valor = message.Valor,
             DadosCartao = new DadosCartao
             {
                 Nome = message.NomeCartao,
@@ -30,6 +30,6 @@ public class PagamentoEventHandler : INotificationHandler<ConfirmadoEvent>
             }
         };
 
-        await _pagamentoService.RealizarPagamento(pedido);
+        await _pagamentoService.RealizarPagamento(pagamentoPedido);
     }
 }

@@ -1,4 +1,5 @@
-﻿using XpertEducation.Core.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using XpertEducation.Core.Data;
 using XpertEducation.GestaoAlunos.Domain.Models;
 using XpertEducation.GestaoAlunos.Domain.Repositories;
 
@@ -20,19 +21,25 @@ public class AlunoRepository : IAlunoRepository
         await _context.Alunos.AddAsync(aluno);
     }
 
-    public async Task AdicionarMatriculaAsync(Matricula matricula)
+    public async Task<Matricula?> ObterMatriculaPorAlunoId(Guid AlunoId)
     {
-        await _context.Matriculas.AddAsync(matricula);
+        var matricula = await _context.Matriculas.FirstOrDefaultAsync(m => m.AlunoId == AlunoId);
+        return matricula;
+    }
+
+    public void AdicionarMatricula(Matricula matricula)
+    {
+        _context.Matriculas.Add(matricula);
+    }
+
+    public void AtualizarMatricula(Matricula matricula)
+    {
+        _context.Matriculas.Update(matricula);
     }
 
     public void Dispose()
     {
         _context.Dispose();
-    }
-
-    public Task<Matricula?> ObterMatriculaPorIdAsync(Guid matriculaId)
-    {
-        throw new NotImplementedException();
     }
 }
 

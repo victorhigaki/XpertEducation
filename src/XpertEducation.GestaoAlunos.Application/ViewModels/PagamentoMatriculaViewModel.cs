@@ -2,6 +2,6 @@
 {
     public class PagamentoMatriculaViewModel
     {
-        public Guid MatriculaId { get; set; }
+        public DadosPagamentoCartaoViewModel DadosCartao { get; set; }
     }
 }

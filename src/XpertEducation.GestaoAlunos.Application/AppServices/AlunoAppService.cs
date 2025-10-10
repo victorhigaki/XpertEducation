@@ -20,14 +20,14 @@ public class AlunoAppService : IAlunoAppService
         await _alunoRepository.UnitOfWork.Commit();
     }
 
-    public async Task<MatriculaViewModel> ObterMatriculaPorIdAsync(Guid matriculaId)
+    public async Task<MatriculaViewModel> ObterMatriculaPorAlunoId(Guid matriculaId)
     {
-        var matricula = await _alunoRepository.ObterMatriculaPorIdAsync(matriculaId);
+        var matricula = await _alunoRepository.ObterMatriculaPorAlunoId(matriculaId);
         return new MatriculaViewModel {
             Id = matricula.Id,
             AlunoId = matricula.AlunoId,
             CursoId = matricula.CursoId,
-            Status = matricula.Status
+            Status = matricula.MatriculaStatus
         };
     }
 

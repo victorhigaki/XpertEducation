@@ -19,4 +19,8 @@
     <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Business\XpertEducation.PagamentoFaturamento.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

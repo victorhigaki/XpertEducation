@@ -1,6 +1,6 @@
-﻿namespace NerdStore.Pagamentos.AntiCorruption
+﻿namespace XpertEducation.PagamentoFaturamento.AntiCorruption
 {
-    public class ConfigurationManager : NerdStore.Pagamentos.AntiCorruption.IConfigurationManager
+    public class ConfigurationManager : IConfigurationManager
     {
         public string GetValue(string node)
         {

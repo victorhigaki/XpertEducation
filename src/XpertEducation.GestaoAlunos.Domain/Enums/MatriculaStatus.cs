@@ -3,5 +3,6 @@
 public enum MatriculaStatus
 {
     PendentePagamento = 0,
-    Pago = 1,
+    Iniciado = 1,
+    Pago = 2,
 }

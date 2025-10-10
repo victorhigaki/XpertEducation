@@ -2,8 +2,8 @@
 
 public class PagamentoPedido
 {
-    public Guid PedidoId { get; set; }
+    public Guid MatriculaId { get; set; }
     public Guid ClienteId { get; set; }
-    public decimal Total { get; set; }
+    public decimal Valor { get; set; }
     public DadosCartao DadosCartao { get; set; }
 }

@@ -1,8 +1,6 @@
-﻿using XpertEducation.Core.DomainObjects;
+﻿namespace XpertEducation.GestaoAlunos.Application.ViewModels;
 
-namespace XpertEducation.PagamentoFaturamento.Business.Models;
-
-public class DadosCartao : Entity
+public class DadosPagamentoCartaoViewModel
 {
     public string Nome { get; set; }
     public string Numero { get; set; }

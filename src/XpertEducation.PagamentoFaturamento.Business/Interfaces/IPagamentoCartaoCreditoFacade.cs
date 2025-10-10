@@ -4,6 +4,6 @@ namespace XpertEducation.PagamentoFaturamento.Business.Interfaces
 {
     public interface IPagamentoCartaoCreditoFacade
     {
-        Transacao RealizarPagamento(Pedido pedido, Pagamento pagamento);
+        Transacao RealizarPagamento(Matricula pedido, Pagamento pagamento);
     }
 }

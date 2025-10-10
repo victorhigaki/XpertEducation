@@ -1,4 +1,4 @@
-﻿namespace NerdStore.Pagamentos.AntiCorruption
+﻿namespace XpertEducation.PagamentoFaturamento.AntiCorruption
 {
     public interface IPayPalGateway
     {

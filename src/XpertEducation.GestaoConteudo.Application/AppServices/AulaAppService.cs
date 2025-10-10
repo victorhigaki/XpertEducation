@@ -21,6 +21,7 @@ public class AulaAppService : IAulaAppService
             Id = result.Id,
             Nome = result.Nome,
             ConteudoProgramatico = result.ConteudoProgramatico,
+            Valor = result.Valor,
         };
     }
 

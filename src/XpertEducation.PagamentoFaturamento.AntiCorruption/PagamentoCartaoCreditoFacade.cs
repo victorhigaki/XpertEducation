@@ -1,5 +1,4 @@
-﻿using NerdStore.Pagamentos.AntiCorruption;
-using XpertEducation.PagamentoFaturamento.Business.Enums;
+﻿using XpertEducation.PagamentoFaturamento.Business.Enums;
 using XpertEducation.PagamentoFaturamento.Business.Interfaces;
 using XpertEducation.PagamentoFaturamento.Business.Models;
 
@@ -16,7 +15,7 @@ namespace XpertEducation.PagamentoFaturamento.AntiCorruption
             _configManager = configManager;
         }
 
-        public Transacao RealizarPagamento(Pedido pedido, Pagamento pagamento)
+        public Transacao RealizarPagamento(Matricula pedido, Pagamento pagamento)
         {
             var apiKey = _configManager.GetValue("apiKey");
             var encriptionKey = _configManager.GetValue("encriptionKey");
