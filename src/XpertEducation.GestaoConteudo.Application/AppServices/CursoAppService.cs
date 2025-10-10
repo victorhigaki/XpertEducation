@@ -42,11 +42,13 @@ public class CursoAppService : ICursoAppService
         };
     }
 
-    public async Task AdicionarAsync(CursoViewModel cursoViewModel)
+    public async Task<CursoViewModel> AdicionarAsync(CursoViewModel cursoViewModel)
     {
         Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico, cursoViewModel.Valor);
         await _cursoRepository.AdicionarAsync(curso);
         await _cursoRepository.UnitOfWork.Commit();
+        cursoViewModel.Id = curso.Id;
+        return cursoViewModel;
     }
 
     public void Dispose()

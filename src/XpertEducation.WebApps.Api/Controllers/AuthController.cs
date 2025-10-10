@@ -9,6 +9,7 @@ using System.Text;
 using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Application.ViewModels;
+using XpertEducation.WebApps.Api.Extensions;
 using XpertEducation.WebApps.Api.Models;
 
 namespace XpertEducation.WebApps.Api.Controllers;
@@ -25,7 +26,8 @@ public class AuthController : BaseController
                           IOptions<JwtSettings> jwtSettings,
                           INotificationHandler<DomainNotification> notifications,
                           IMediatorHandler mediatorHandler,
-                          IAlunoAppService alunoService) : base(notifications, mediatorHandler)
+                          IAppIdentityUser appIdentityUser,
+                          IAlunoAppService alunoService) : base(notifications, mediatorHandler, appIdentityUser)
     {
         _signInManager = signInManager;
         _userManager = userManager;

@@ -20,21 +20,17 @@ public class MatriculasController : BaseController
     private readonly IMediatorHandler _mediatorHandler;
     private readonly IMatriculaQueries _matriculaQueries;
 
-    private Guid AlunoId { get; set; }
-
     public MatriculasController(IAlunoAppService alunoAppService,
         INotificationHandler<DomainNotification> notifications,
         ICursoAppService cursoAppService,
         IMediatorHandler mediatorHandler,
         IAppIdentityUser appIdentityUser,
-        IMatriculaQueries matriculaQueries) : base(notifications, mediatorHandler)
+        IMatriculaQueries matriculaQueries) : base(notifications, mediatorHandler, appIdentityUser)
     {
         _alunoAppService = alunoAppService;
         _cursoAppService = cursoAppService;
         _mediatorHandler = mediatorHandler;
         _matriculaQueries = matriculaQueries;
-
-        AlunoId = appIdentityUser.GetUserId();
     }
 
     [HttpPost]
@@ -47,7 +43,7 @@ public class MatriculasController : BaseController
             return CustomResponse("Curso não encontrado.");
         }
 
-        var command = new MatriculaAlunoCommand(AlunoId, curso.Id);
+        var command = new MatriculaAlunoCommand(UserId, curso.Id);
         var result = await _mediatorHandler.EnviarComando(command);
 
         if (!OperacaoValida())
@@ -55,19 +51,19 @@ public class MatriculasController : BaseController
             return CustomResponse();
         }
 
-        return CustomResponse(await _matriculaQueries.ObterMatriculaAluno(AlunoId));
+        return CustomResponse(await _matriculaQueries.ObterMatriculaAluno(UserId));
     }
 
     [HttpPost("realizar-pagamento-matricula")]
     public async Task<ActionResult> RealizarPagamentoMatricula(PagamentoMatriculaViewModel pagamentoMatriculaViewModel)
     {
-        var matricula = await _matriculaQueries.ObterMatriculaAluno(AlunoId);
+        var matricula = await _matriculaQueries.ObterMatriculaAluno(UserId);
         if (matricula.Status != MatriculaStatus.PendentePagamento)
         {
-            return CustomResponse("Esta ação não pode ser executada");
+            return BadRequest("Esta ação não pode ser executada");
         }
 
-        var command = new MatriculaIniciarPagamentoCommand(matricula.Id, AlunoId, 
+        var command = new MatriculaIniciarPagamentoCommand(matricula.Id, UserId, 
             pagamentoMatriculaViewModel.DadosCartao.Nome, pagamentoMatriculaViewModel.DadosCartao.Numero , pagamentoMatriculaViewModel.DadosCartao.Expiracao , pagamentoMatriculaViewModel.DadosCartao.Cvv);
         await _mediatorHandler.EnviarComando(command);
 
@@ -76,6 +72,6 @@ public class MatriculasController : BaseController
             return CustomResponse();
         }
 
-        return CustomResponse(await _matriculaQueries.ObterMatriculaAluno(AlunoId));
+        return CustomResponse(await _matriculaQueries.ObterMatriculaAluno(UserId));
     }
 }

@@ -9,7 +9,7 @@ using XpertEducation.GestaoAlunos.Data;
 
 namespace XpertEducation.GestaoAlunos.Data.Migrations
 {
-    [DbContext(typeof(AlunosContext))]
+    [DbContext(typeof(GestaoAlunosContext))]
     partial class AlunosContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

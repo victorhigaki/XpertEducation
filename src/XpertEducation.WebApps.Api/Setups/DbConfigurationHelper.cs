@@ -31,7 +31,7 @@ public static class DbMigrationHelpers
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
 
         var contextId = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var alunosContext = scope.ServiceProvider.GetRequiredService<AlunosContext>();
+        var alunosContext = scope.ServiceProvider.GetRequiredService<GestaoAlunosContext>();
         var gestaoConteudoContext = scope.ServiceProvider.GetRequiredService<GestaoConteudoContext>();
         var pagamentoContext = scope.ServiceProvider.GetRequiredService<PagamentoContext>();
 

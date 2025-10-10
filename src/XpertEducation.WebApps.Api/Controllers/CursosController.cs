@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.GestaoConteudo.Application.ViewModels;
+using XpertEducation.WebApps.Api.Extensions;
 
 namespace XpertEducation.WebApps.Api.Controllers;
 
@@ -14,7 +15,8 @@ public class CursosController : BaseController
 
     public CursosController(ICursoAppService cursoAppService, 
                             INotificationHandler<DomainNotification> notifications,
-                            IMediatorHandler mediatorHandler) : base(notifications, mediatorHandler)
+                            IMediatorHandler mediatorHandler,
+                            IAppIdentityUser appIdentityUser) : base(notifications, mediatorHandler, appIdentityUser)
     {
         _cursoAppService = cursoAppService;
     }
@@ -29,7 +31,7 @@ public class CursosController : BaseController
     [HttpPost]
     public async Task<IActionResult> AdicionarCursoAsync(CursoViewModel cursoViewModel)
     {
-        await _cursoAppService.AdicionarAsync(cursoViewModel);
-        return CustomResponse(cursoViewModel);
+        var result = await _cursoAppService.AdicionarAsync(cursoViewModel);
+        return CustomResponse(result);
     }
 }

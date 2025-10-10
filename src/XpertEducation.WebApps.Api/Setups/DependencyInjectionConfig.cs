@@ -42,7 +42,7 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<IAlunoAppService, AlunoAppService>();
         builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
         builder.Services.AddScoped<IMatriculaQueries, MatriculaQueries>();
-        builder.Services.AddScoped<AlunosContext>();
+        builder.Services.AddScoped<GestaoAlunosContext>();
 
         builder.Services.AddScoped<IRequestHandler<MatriculaAlunoCommand, bool>, MatriculaCommandHandler>();
         builder.Services.AddScoped<IRequestHandler<MatriculaIniciarPagamentoCommand, bool>, MatriculaCommandHandler>();

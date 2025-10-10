@@ -1,6 +1,6 @@
 ﻿using XpertEducation.Core.Messages;
 
-namespace XpertEducation.GestaoAlunos.Application.Commands
+namespace XpertEducation.GestaoAlunos.Application.Events
 {
     internal class MatriculaRealizadaEvent : Event
     {

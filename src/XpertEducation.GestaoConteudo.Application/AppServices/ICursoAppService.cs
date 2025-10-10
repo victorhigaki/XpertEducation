@@ -6,5 +6,5 @@ public interface ICursoAppService : IDisposable
 {
     Task<IEnumerable<CursoViewModel>> ObterTodosAsync();
     Task<CursoViewModel> ObterPorIdAsync(Guid id);
-    Task AdicionarAsync(CursoViewModel cursoViewModel);
+    Task<CursoViewModel> AdicionarAsync(CursoViewModel cursoViewModel);
 }

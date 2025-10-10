@@ -42,7 +42,7 @@ public abstract class Entity
 
     public static bool operator ==(Entity a, Entity b)
     {
-        if (ReferenceEquals(a, null))
+        if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
             return true;
 
         if (ReferenceEquals(a, null) || ReferenceEquals(b, null))

@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.Core.Messages.Notifications;
+using XpertEducation.WebApps.Api.Extensions;
 
 namespace XpertEducation.WebApps.Api.Controllers;
 
@@ -12,11 +13,15 @@ public abstract class BaseController : ControllerBase
     private readonly DomainNotificationHandler _notifications;
     private readonly IMediatorHandler _mediatorHandler;
 
+    protected Guid UserId { get; private set; }
+
     protected BaseController(INotificationHandler<DomainNotification> notifications,
-                             IMediatorHandler mediatorHandler)
+                             IMediatorHandler mediatorHandler,
+                             IAppIdentityUser appIdentityUser)
     {
         _notifications = (DomainNotificationHandler)notifications;
         _mediatorHandler = mediatorHandler;
+        UserId = appIdentityUser.GetUserId();
     }
 
     protected ActionResult CustomResponse(object result = null)

@@ -10,7 +10,7 @@ using XpertEducation.GestaoAlunos.Data;
 
 namespace XpertEducation.GestaoAlunos.Data.Migrations
 {
-    [DbContext(typeof(AlunosContext))]
+    [DbContext(typeof(GestaoAlunosContext))]
     [Migration("20250928173900_CreateAlunos")]
     partial class CreateAlunos
     {

@@ -7,14 +7,19 @@ namespace XpertEducation.GestaoAlunos.Data.Repositories;
 
 public class AlunoRepository : IAlunoRepository
 {
-    private readonly AlunosContext _context;
+    private readonly GestaoAlunosContext _context;
 
-    public AlunoRepository(AlunosContext context)
+    public AlunoRepository(GestaoAlunosContext context)
     {
         _context = context;
     }
 
     public IUnitOfWork UnitOfWork => _context;
+
+    public async Task<Aluno?> ObterPorId(Guid id)
+    {
+        return await _context.Alunos.FindAsync(id);
+    }
 
     public async Task Adicionar(Aluno aluno)
     {

@@ -10,7 +10,8 @@ namespace XpertEducation.GestaoAlunos.Application.Commands;
 public class MatriculaCommandHandler :
     IRequestHandler<MatriculaAlunoCommand, bool>,
     IRequestHandler<MatriculaIniciarPagamentoCommand, bool>,
-    IRequestHandler<MatriculaFinalizarPagamentoCommand, bool>
+    IRequestHandler<MatriculaFinalizarPagamentoCommand, bool>,
+    IRequestHandler<RealizarAulaCommand, bool>
 {
     private readonly IMediatorHandler _mediatorHandler;
     private readonly IAlunoRepository _alunoRepository;
@@ -78,6 +79,29 @@ public class MatriculaCommandHandler :
         matricula.Finalizar();
 
         matricula.AdicionarEvento(new MatriculaPagamentoFinalizadoEvent(message.MatriculaId));
+        return await _alunoRepository.UnitOfWork.Commit();
+    }
+
+    public async Task<bool> Handle(RealizarAulaCommand message, CancellationToken cancellationToken)
+    {
+        if (ValidarComando(message)) return false;
+
+        var matricula = await _alunoRepository.ObterMatriculaPorAlunoId(message.AlunoId);
+        if (matricula == null)
+        {
+            await _mediatorHandler.PublicarNotificacao(new DomainNotification("matricula", "Matrícula não encontrada!"));
+            return false;
+        }
+
+        var aluno = await _alunoRepository.ObterPorId(message.AlunoId);
+        if (aluno == null)
+        {
+            await _mediatorHandler.PublicarNotificacao(new DomainNotification("aluno", "Aluno não encontrado!"));
+            return false;
+        }
+
+        aluno.RealizarAula(message.AulaId);
+
         return await _alunoRepository.UnitOfWork.Commit();
     }
 

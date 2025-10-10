@@ -1,6 +1,6 @@
 ﻿namespace XpertEducation.Core.Messages.IntegrationEvents;
 
-public class PagamentoRecusadoEvent :IntegrationEvent
+public class PagamentoRecusadoEvent : IntegrationEvent
 {
     public Guid MatriculaId { get; private set; }
     public Guid ClienteId { get; private set; }

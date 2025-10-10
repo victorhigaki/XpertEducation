@@ -5,9 +5,9 @@ using XpertEducation.GestaoAlunos.Domain.Models;
 
 namespace XpertEducation.GestaoAlunos.Data;
 
-public class AlunosContext : DbContext, IUnitOfWork
+public class GestaoAlunosContext : DbContext, IUnitOfWork
 {
-    public AlunosContext(DbContextOptions<AlunosContext> options) : base(options)
+    public GestaoAlunosContext(DbContextOptions<GestaoAlunosContext> options) : base(options)
     {
     }
 
@@ -27,7 +27,7 @@ public class AlunosContext : DbContext, IUnitOfWork
 
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AlunosContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(GestaoAlunosContext).Assembly);
 
         base.OnModelCreating(modelBuilder);
     }

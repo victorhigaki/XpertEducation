@@ -21,7 +21,7 @@ public static class IdentityConfig
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddDbContext<AlunosContext>(options =>
+            builder.Services.AddDbContext<GestaoAlunosContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
@@ -40,7 +40,7 @@ public static class IdentityConfig
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Services.AddDbContext<AlunosContext>(options =>
+            builder.Services.AddDbContext<GestaoAlunosContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
