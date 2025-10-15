@@ -6,8 +6,11 @@ namespace XpertEducation.GestaoAlunos.Domain.Repositories;
 public interface IAlunoRepository : IRepository<Aluno>
 {
     Task<Aluno?> ObterPorId(Guid alunoId);
-    Task Adicionar(Aluno aluno);
+    void Adicionar(Aluno aluno);
+    void Atualizar(Aluno aluno);
     Task<Matricula?> ObterMatriculaPorAlunoId(Guid matriculaId);
     void AdicionarMatricula(Matricula matricula);
     void AtualizarMatricula(Matricula matricula);
+
+    void AdicionarHistoricoAprendizado(HistoricoAprendizado historicoAprendizado);
 }

@@ -16,6 +16,7 @@ namespace XpertEducation.WebApps.Api.Controllers;
 public class MatriculasController : BaseController
 {
     private readonly IAlunoAppService _alunoAppService;
+    private readonly IAlunoQuery _alunoQuery;
     private readonly ICursoAppService _cursoAppService;
     private readonly IMediatorHandler _mediatorHandler;
     private readonly IMatriculaQueries _matriculaQueries;
@@ -25,19 +26,21 @@ public class MatriculasController : BaseController
         ICursoAppService cursoAppService,
         IMediatorHandler mediatorHandler,
         IAppIdentityUser appIdentityUser,
-        IMatriculaQueries matriculaQueries) : base(notifications, mediatorHandler, appIdentityUser)
+        IMatriculaQueries matriculaQueries,
+        IAlunoQuery alunoQuery) : base(notifications, mediatorHandler, appIdentityUser)
     {
         _alunoAppService = alunoAppService;
         _cursoAppService = cursoAppService;
         _mediatorHandler = mediatorHandler;
         _matriculaQueries = matriculaQueries;
+        _alunoQuery = alunoQuery;
     }
 
     [HttpPost]
     [Route("matricula-aluno")]
     public async Task<IActionResult> MatriculaAlunoAsync(MatriculaAlunoViewModel matriculaAlunoViewModel)
     {
-        var curso = await _cursoAppService.ObterPorIdAsync(matriculaAlunoViewModel.CursoId);
+        var curso = await _cursoAppService.ObterPorId(matriculaAlunoViewModel.CursoId);
         if (curso == null)
         {
             return CustomResponse("Curso não encontrado.");
@@ -58,7 +61,7 @@ public class MatriculasController : BaseController
     public async Task<ActionResult> RealizarPagamentoMatricula(PagamentoMatriculaViewModel pagamentoMatriculaViewModel)
     {
         var matricula = await _matriculaQueries.ObterMatriculaAluno(UserId);
-        if (matricula.Status != MatriculaStatus.PendentePagamento)
+        if (matricula.Status != MatriculaStatus.PendentePagamento && matricula.Status != MatriculaStatus.Recusado)
         {
             return BadRequest("Esta ação não pode ser executada");
         }
@@ -73,5 +76,47 @@ public class MatriculasController : BaseController
         }
 
         return CustomResponse(await _matriculaQueries.ObterMatriculaAluno(UserId));
+    }
+
+    [HttpGet("obter-aulas")]
+    public async Task<IActionResult> RealizarAula(ObterAulasViewModel obterAulasViewModel)
+    {
+        var aluno = await _alunoQuery.ObterPorId(UserId);
+
+        if (aluno == null)
+        {
+            return BadRequest("Aluno não encontrado");
+        }
+
+        //var query = _cursoAppService.ObterPorId(aluno.);
+        return CustomResponse();
+    }
+
+    [HttpPost("realizar-aula")]
+    public async Task<IActionResult> RealizarAula(RealizarAulaViewModel realizarAulaViewModel)
+    {
+        var command = new MatriculaRealizarAulaCommand(UserId, realizarAulaViewModel.AulaId);
+        await _mediatorHandler.EnviarComando(command);
+
+        return CustomResponse();
+    }
+
+    [HttpPost("finalizar-curso")]
+    public async Task<ActionResult> FinalizarCurso()
+    {
+        var matricula = await _matriculaQueries.ObterMatriculaAluno(UserId);
+        var curso = await _cursoAppService.ObterPorId(matricula.CursoId);
+        var aluno = await _alunoQuery.ObterPorId(UserId);
+
+        var idsAulasCurso = curso.Aulas.Select(a => a.Id).ToList();
+        var aulasCursadasAluno = aluno.HistoricoAprendizado.Select(h => h.AulaId).ToList();
+
+        if (idsAulasCurso.All(aulasCursadasAluno.Contains) && aulasCursadasAluno.All(idsAulasCurso.Contains))
+        {
+            var command = new MatriculaFinalizarCursoCommand(matricula.Id, UserId, matricula.CursoId);
+            await _mediatorHandler.EnviarComando(command);
+        }
+
+        return CustomResponse();
     }
 }

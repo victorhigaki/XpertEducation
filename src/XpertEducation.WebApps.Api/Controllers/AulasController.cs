@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using XpertEducation.Core.Communication.Mediator;
-using XpertEducation.GestaoAlunos.Application.Commands;
-using XpertEducation.GestaoAlunos.Application.ViewModels;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.GestaoConteudo.Application.ViewModels;
 using XpertEducation.WebApps.Api.Extensions;
@@ -35,15 +33,5 @@ public class AulasController : BaseController
 
         await _aulaAppService.AdicionarAula(aulaViewModel);
         return CustomResponse(aulaViewModel);
-    }
-
-    [Authorize(Roles = "Aluno")]
-    [HttpPost("realizar-aula")]
-    public async Task<IActionResult> RealizarAula(RealizarAulaViewModel realizarAulaViewModel)
-    {
-        var command = new RealizarAulaCommand(UserId, realizarAulaViewModel.AulaId);
-        await _mediatorHandler.EnviarComando(command);
-
-        return CustomResponse();
     }
 }

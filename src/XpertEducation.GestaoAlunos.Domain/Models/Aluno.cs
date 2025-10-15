@@ -20,6 +20,6 @@ public class Aluno : Entity, IAggregateRoot
 
     public void RealizarAula(Guid aulaId)
     {
-        HistoricoAprendizado.Add(new HistoricoAprendizado(aulaId));
+        HistoricoAprendizado.Add(new HistoricoAprendizado(Id, aulaId));
     }
 }

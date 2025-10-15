@@ -1,18 +1,18 @@
 ﻿namespace XpertEducation.Core.Messages.IntegrationEvents;
 
-public class PagamentoRecusadoEvent : IntegrationEvent
+public class MatriculaPagamentoRecusadoEvent : IntegrationEvent
 {
     public Guid MatriculaId { get; private set; }
-    public Guid ClienteId { get; private set; }
+    public Guid AlunoId { get; private set; }
     public Guid PagamentoId { get; private set; }
     public Guid TransacaoId { get; private set; }
     public decimal Total { get; private set; }
 
-    public PagamentoRecusadoEvent(Guid matriculaId, Guid clienteId, Guid pagamentoId, Guid transacaoId, decimal total)
+    public MatriculaPagamentoRecusadoEvent(Guid matriculaId, Guid alunoId, Guid pagamentoId, Guid transacaoId, decimal total)
     {
         AggregateId = matriculaId;
         MatriculaId = matriculaId;
-        ClienteId = clienteId;
+        AlunoId = alunoId;
         PagamentoId = pagamentoId;
         TransacaoId = transacaoId;
         Total = total;

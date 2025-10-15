@@ -24,14 +24,14 @@ public class CursosController : BaseController
     [HttpGet]
     public async Task<IActionResult> ObterTodosCursoAsync()
     {
-        var result = await _cursoAppService.ObterTodosAsync();
+        var result = await _cursoAppService.ObterTodos();
         return CustomResponse(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> AdicionarCursoAsync(CursoViewModel cursoViewModel)
     {
-        var result = await _cursoAppService.AdicionarAsync(cursoViewModel);
+        var result = await _cursoAppService.Adicionar(cursoViewModel);
         return CustomResponse(result);
     }
 }

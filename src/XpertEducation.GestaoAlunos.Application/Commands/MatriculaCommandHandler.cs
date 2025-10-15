@@ -11,7 +11,9 @@ public class MatriculaCommandHandler :
     IRequestHandler<MatriculaAlunoCommand, bool>,
     IRequestHandler<MatriculaIniciarPagamentoCommand, bool>,
     IRequestHandler<MatriculaFinalizarPagamentoCommand, bool>,
-    IRequestHandler<RealizarAulaCommand, bool>
+    IRequestHandler<MatriculaRealizarAulaCommand, bool>,
+    IRequestHandler<MatriculaFinalizarCursoCommand, bool>,
+    IRequestHandler<MatriculaPagamentoRecusadoCommand, bool>
 {
     private readonly IMediatorHandler _mediatorHandler;
     private readonly IAlunoRepository _alunoRepository;
@@ -57,16 +59,16 @@ public class MatriculaCommandHandler :
         }
 
         matricula.Iniciar();
+        _alunoRepository.AtualizarMatricula(matricula);
 
         await _mediatorHandler.PublicarEvento(new MatriculaIniciarPagamentoEvent(matricula.Id, matricula.AlunoId, matricula.Valor, message.NomeCartao, message.NumeroCartao, message.ExpiracaoCartao, message.CvvCartao));
 
-        _alunoRepository.AtualizarMatricula(matricula);
         return await _alunoRepository.UnitOfWork.Commit();
     }
 
     public async Task<bool> Handle(MatriculaFinalizarPagamentoCommand message, CancellationToken cancellationToken)
     {
-        if (ValidarComando(message)) return false;
+        if (!ValidarComando(message)) return false;
 
         var matricula = await _alunoRepository.ObterMatriculaPorAlunoId(message.AlunoId);
 
@@ -79,12 +81,15 @@ public class MatriculaCommandHandler :
         matricula.Finalizar();
 
         matricula.AdicionarEvento(new MatriculaPagamentoFinalizadoEvent(message.MatriculaId));
+
+        _alunoRepository.AtualizarMatricula(matricula);
+
         return await _alunoRepository.UnitOfWork.Commit();
     }
 
-    public async Task<bool> Handle(RealizarAulaCommand message, CancellationToken cancellationToken)
+    public async Task<bool> Handle(MatriculaRealizarAulaCommand message, CancellationToken cancellationToken)
     {
-        if (ValidarComando(message)) return false;
+        if (!ValidarComando(message)) return false;
 
         var matricula = await _alunoRepository.ObterMatriculaPorAlunoId(message.AlunoId);
         if (matricula == null)
@@ -100,7 +105,47 @@ public class MatriculaCommandHandler :
             return false;
         }
 
-        aluno.RealizarAula(message.AulaId);
+        _alunoRepository.AdicionarHistoricoAprendizado(new HistoricoAprendizado(aluno.Id, message.AulaId));
+
+        return await _alunoRepository.UnitOfWork.Commit();
+    }
+
+    public async Task<bool> Handle(MatriculaFinalizarCursoCommand message, CancellationToken cancellationToken)
+    {
+        var matricula = await _alunoRepository.ObterMatriculaPorAlunoId(message.AlunoId);
+
+        if (matricula == null)
+        {
+            await _mediatorHandler.PublicarNotificacao(new DomainNotification("matricula", "Matrícula não encontrada!"));
+            return false;
+        }
+
+        var aluno = await _alunoRepository.ObterPorId(message.AlunoId);
+
+        if (aluno == null)
+        {
+            await _mediatorHandler.PublicarNotificacao(new DomainNotification("aluno", "Aluno não encontrado!"));
+            return false;
+        }
+
+        matricula.FinalizarCurso();
+
+        _alunoRepository.AtualizarMatricula(matricula);
+
+        return await _alunoRepository.UnitOfWork.Commit();
+    }
+
+    public async Task<bool> Handle(MatriculaPagamentoRecusadoCommand message, CancellationToken cancellationToken)
+    {
+        var matricula = await _alunoRepository.ObterMatriculaPorAlunoId(message.AlunoId);
+
+        if (matricula == null)
+        {
+            await _mediatorHandler.PublicarNotificacao(new DomainNotification("matricula", "Matrícula não encontrada!"));
+            return false;
+        }
+
+        matricula.Recusar();
 
         return await _alunoRepository.UnitOfWork.Commit();
     }

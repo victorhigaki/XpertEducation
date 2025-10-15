@@ -4,7 +4,7 @@ namespace XpertEducation.GestaoConteudo.Application.AppServices;
 
 public interface ICursoAppService : IDisposable
 {
-    Task<IEnumerable<CursoViewModel>> ObterTodosAsync();
-    Task<CursoViewModel> ObterPorIdAsync(Guid id);
-    Task<CursoViewModel> AdicionarAsync(CursoViewModel cursoViewModel);
+    Task<IEnumerable<CursoViewModel>> ObterTodos();
+    Task<CursoViewModel> ObterPorId(Guid id);
+    Task<CursoViewModel> Adicionar(CursoViewModel cursoViewModel);
 }
