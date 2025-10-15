@@ -17,7 +17,7 @@ public class Curso : Entity, IAggregateRoot
         Nome = nome;
         ConteudoProgramatico = conteudoProgramatico;
         Valor = valor;
-
+        Aulas = new List<Aula>();
         Validar();
     }
 

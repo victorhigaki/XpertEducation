@@ -3,12 +3,12 @@ using XpertEducation.Core.Messages;
 
 namespace XpertEducation.GestaoAlunos.Application.Commands;
 
-public class RealizarAulaCommand : Command
+public class MatriculaRealizarAulaCommand : Command
 {
     public Guid AlunoId { get; private set; }
     public Guid AulaId { get; private set; }
 
-    public RealizarAulaCommand(Guid userId, Guid aulaId)
+    public MatriculaRealizarAulaCommand(Guid userId, Guid aulaId)
     {
         AlunoId = userId;
         AulaId = aulaId;
@@ -16,14 +16,14 @@ public class RealizarAulaCommand : Command
 
     public override bool EhValido()
     {
-        ValidationResult = new RealizarAulaCommandValidation().Validate(this);
+        ValidationResult = new RealizarAulaValidation().Validate(this);
         return ValidationResult.IsValid;
     }
 }
 
-public class RealizarAulaCommandValidation : AbstractValidator<RealizarAulaCommand>
+public class RealizarAulaValidation : AbstractValidator<MatriculaRealizarAulaCommand>
 {
-    public RealizarAulaCommandValidation()
+    public RealizarAulaValidation()
     {
         RuleFor(c => c.AlunoId)
             .NotEqual(Guid.Empty)

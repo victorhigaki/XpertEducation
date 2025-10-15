@@ -11,7 +11,7 @@ public class CursoAppService : ICursoAppService
         _cursoRepository = cursoRepository;
     }
 
-    public async Task<IEnumerable<CursoViewModel>> ObterTodosAsync()
+    public async Task<IEnumerable<CursoViewModel>> ObterTodos()
     {
         var cursos = await _cursoRepository.ObterTodosAsync();
 
@@ -30,7 +30,7 @@ public class CursoAppService : ICursoAppService
         return cursosViewModel;
     }
 
-    public async Task<CursoViewModel> ObterPorIdAsync(Guid id)
+    public async Task<CursoViewModel> ObterPorId(Guid id)
     {
         var curso = await _cursoRepository.ObterPorIdAsync(id);
         return new CursoViewModel
@@ -39,10 +39,15 @@ public class CursoAppService : ICursoAppService
             Nome = curso.Nome,
             ConteudoProgramatico = curso.ConteudoProgramatico,
             Valor = curso.Valor,
+            Aulas = curso.Aulas.Select(a => new AulaViewModel
+            {
+                Id = a.Id,
+                Titulo = a.Titulo,
+            }).ToList()
         };
     }
 
-    public async Task<CursoViewModel> AdicionarAsync(CursoViewModel cursoViewModel)
+    public async Task<CursoViewModel> Adicionar(CursoViewModel cursoViewModel)
     {
         Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico, cursoViewModel.Valor);
         await _cursoRepository.AdicionarAsync(curso);

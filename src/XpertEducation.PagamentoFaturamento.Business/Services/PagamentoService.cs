@@ -50,7 +50,7 @@ public class PagamentoService : IPagamentoService
         }
 
         await _mediatorHandler.PublicarNotificacao(new DomainNotification("pagamento", "A operadora recusou o pagamento"));
-        await _mediatorHandler.PublicarEvento(new PagamentoRecusadoEvent(matricula.Id, pagamentoPedido.ClienteId, transacao.PagamentoId, transacao.Id, matricula.Valor));
+        await _mediatorHandler.PublicarEvento(new MatriculaPagamentoRecusadoEvent(matricula.Id, pagamentoPedido.ClienteId, transacao.PagamentoId, transacao.Id, matricula.Valor));
 
         return transacao;
     }

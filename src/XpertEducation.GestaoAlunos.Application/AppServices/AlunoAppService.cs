@@ -16,7 +16,7 @@ public class AlunoAppService : IAlunoAppService
     public async Task AdicionarAsync(AlunoViewModel alunoViewModel)
     {
         var aluno = new Aluno(alunoViewModel.Id);
-        await _alunoRepository.Adicionar(aluno);
+        _alunoRepository.Adicionar(aluno);
         await _alunoRepository.UnitOfWork.Commit();
     }
 

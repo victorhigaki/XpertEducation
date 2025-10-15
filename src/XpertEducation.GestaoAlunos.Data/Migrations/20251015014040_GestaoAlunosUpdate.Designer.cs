@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using XpertEducation.GestaoAlunos.Data;
 
@@ -10,9 +11,11 @@ using XpertEducation.GestaoAlunos.Data;
 namespace XpertEducation.GestaoAlunos.Data.Migrations
 {
     [DbContext(typeof(GestaoAlunosContext))]
-    partial class AlunosContextModelSnapshot : ModelSnapshot
+    [Migration("20251015014040_GestaoAlunosUpdate")]
+    partial class GestaoAlunosUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
@@ -66,7 +69,7 @@ namespace XpertEducation.GestaoAlunos.Data.Migrations
 
                     b.HasIndex("AlunoId");
 
-                    b.ToTable("HistoricosAprendizados");
+                    b.ToTable("HistoricoAprendizado");
                 });
 
             modelBuilder.Entity("XpertEducation.GestaoAlunos.Domain.Models.Matricula", b =>

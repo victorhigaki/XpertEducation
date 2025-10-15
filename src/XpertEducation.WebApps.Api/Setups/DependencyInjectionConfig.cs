@@ -42,10 +42,15 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<IAlunoAppService, AlunoAppService>();
         builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
         builder.Services.AddScoped<IMatriculaQueries, MatriculaQueries>();
+        builder.Services.AddScoped<IAlunoQuery, AlunoQuery>();
         builder.Services.AddScoped<GestaoAlunosContext>();
 
         builder.Services.AddScoped<IRequestHandler<MatriculaAlunoCommand, bool>, MatriculaCommandHandler>();
         builder.Services.AddScoped<IRequestHandler<MatriculaIniciarPagamentoCommand, bool>, MatriculaCommandHandler>();
+        builder.Services.AddScoped<IRequestHandler<MatriculaFinalizarPagamentoCommand, bool>, MatriculaCommandHandler>();
+        builder.Services.AddScoped<IRequestHandler<MatriculaRealizarAulaCommand, bool>, MatriculaCommandHandler>();
+        builder.Services.AddScoped<IRequestHandler<MatriculaPagamentoRecusadoCommand, bool>, MatriculaCommandHandler>();
+        builder.Services.AddScoped<IRequestHandler<MatriculaFinalizarCursoCommand, bool>, MatriculaCommandHandler>();
 
         builder.Services.AddScoped<IPagamentoService, PagamentoService>();
         builder.Services.AddScoped<IPagamentoRepository, PagamentoRepository>();
@@ -53,7 +58,6 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<IPayPalGateway, PayPalGateway>();
         builder.Services.AddScoped<IConfigurationManager, ConfigurationManager>();
         builder.Services.AddScoped<PagamentoContext>();
-
 
         builder.Services.AddScoped<INotificationHandler<MatriculaIniciarPagamentoEvent>, PagamentoEventHandler>();
 

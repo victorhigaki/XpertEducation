@@ -10,7 +10,9 @@ public class AlunoMapping : IEntityTypeConfiguration<Aluno>
     {
         builder.HasKey(a => a.Id);
 
-        builder.OwnsMany(a => a.HistoricoAprendizado);
+        builder.HasMany(a => a.HistoricoAprendizado)
+            .WithOne(b => b.Aluno)
+            .HasForeignKey(a => a.AlunoId);
 
         builder.ToTable("Alunos");
     }

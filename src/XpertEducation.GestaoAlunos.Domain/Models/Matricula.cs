@@ -37,6 +37,12 @@ public class Matricula : Entity
     {
         MatriculaStatus = MatriculaStatus.Pago;
     }
+
+    public void Recusar()
+    {
+        MatriculaStatus = MatriculaStatus.Recusado;
+    }
+
     public void AlterarCurso(Guid cursoId)
     {
         CursoId = cursoId;
@@ -47,6 +53,11 @@ public class Matricula : Entity
         Validacoes.ValidarSeIgual(CursoId, Guid.Empty, "O campo CursoId não pode estar vazio");
         Validacoes.ValidarSeIgual(AlunoId, Guid.Empty, "O campo AlunoId não pode estar vazio");
         Validacoes.ValidarSeIgual(Valor, string.Empty, "O campo Valor não pode estar vazio");
+    }
+
+    public void FinalizarCurso()
+    {
+        MatriculaStatus = MatriculaStatus.Concluido;
     }
 
     public static class MatriculaFactory

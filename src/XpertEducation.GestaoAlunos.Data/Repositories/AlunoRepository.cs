@@ -18,12 +18,17 @@ public class AlunoRepository : IAlunoRepository
 
     public async Task<Aluno?> ObterPorId(Guid id)
     {
-        return await _context.Alunos.FindAsync(id);
+        return await _context.Alunos.Include(a => a.HistoricoAprendizado).FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task Adicionar(Aluno aluno)
+    public void Adicionar(Aluno aluno)
     {
-        await _context.Alunos.AddAsync(aluno);
+        _context.Alunos.AddAsync(aluno);
+    }
+
+    public void Atualizar(Aluno aluno)
+    {
+        _context.Alunos.Update(aluno);
     }
 
     public async Task<Matricula?> ObterMatriculaPorAlunoId(Guid AlunoId)
@@ -40,6 +45,11 @@ public class AlunoRepository : IAlunoRepository
     public void AtualizarMatricula(Matricula matricula)
     {
         _context.Matriculas.Update(matricula);
+    }
+
+    public void AdicionarHistoricoAprendizado(HistoricoAprendizado historicoAprendizado)
+    {
+        _context.HistoricosAprendizados.Add(historicoAprendizado);
     }
 
     public void Dispose()

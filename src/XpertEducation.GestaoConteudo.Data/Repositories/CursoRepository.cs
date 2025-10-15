@@ -17,12 +17,12 @@ public class CursoRepository : ICursoRepository
 
     public async Task<IEnumerable<Curso>?> ObterTodosAsync()
     {
-        return await _context.Cursos.ToListAsync();
+        return await _context.Cursos.AsNoTracking().ToListAsync();
     }
 
     public async Task<Curso?> ObterPorIdAsync(Guid id)
     {
-        return await _context.Cursos.FindAsync(id);
+        return await _context.Cursos.AsNoTracking().Include(c => c.Aulas).FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task AdicionarAsync(Curso curso)

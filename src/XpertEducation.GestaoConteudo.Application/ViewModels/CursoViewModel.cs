@@ -6,4 +6,5 @@ public class CursoViewModel
     public required string Nome { get; set; }
     public required string ConteudoProgramatico { get; set; }
     public required decimal Valor { get; set; }
+    public IEnumerable<AulaViewModel>? Aulas { get; set; }
 }
