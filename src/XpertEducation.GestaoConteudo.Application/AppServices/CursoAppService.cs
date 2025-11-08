@@ -33,6 +33,7 @@ public class CursoAppService : ICursoAppService
     public async Task<CursoViewModel> ObterPorId(Guid id)
     {
         var curso = await _cursoRepository.ObterPorIdAsync(id);
+        if (curso == null) return null;
         return new CursoViewModel
         {
             Id = curso.Id,
@@ -54,6 +55,12 @@ public class CursoAppService : ICursoAppService
         await _cursoRepository.UnitOfWork.Commit();
         cursoViewModel.Id = curso.Id;
         return cursoViewModel;
+    }
+
+    public async Task AdicionarAula(AulaViewModel aulaViewModel)
+    {
+        await _cursoRepository.AdicionarAulaAsync(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
+        await _cursoRepository.UnitOfWork.Commit();
     }
 
     public void Dispose()

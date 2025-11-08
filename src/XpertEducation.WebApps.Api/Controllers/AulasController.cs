@@ -10,28 +10,25 @@ namespace XpertEducation.WebApps.Api.Controllers;
 
 public class AulasController : BaseController
 {
-    private readonly IAulaAppService _aulaAppService;
-    private readonly IMediatorHandler _mediatorHandler;
+    private readonly ICursoAppService _cursoAppService;
 
     public Guid AlunoId { get; private set; }
 
-    public AulasController(IAulaAppService aulaAppService,
+    public AulasController(ICursoAppService cursoAppService,
                            IAppIdentityUser appIdentityUser,
                            INotificationHandler<DomainNotification> notifications,
                            IMediatorHandler mediatorHandler) : base(notifications, mediatorHandler, appIdentityUser)
     {
-        _aulaAppService = aulaAppService;
-        _mediatorHandler = mediatorHandler;
+        _cursoAppService = cursoAppService;
     }
 
     [Authorize(Roles = "Admin")]
     [HttpPost("cadastro-aula")]
     public async Task<IActionResult> AdicionarAula(AulaViewModel aulaViewModel)
     {
-        var curso = _aulaAppService.ObterCursoPorId(aulaViewModel.CursoId);
+        var curso = _cursoAppService.ObterPorId(aulaViewModel.CursoId);
         if (curso == null) return BadRequest();
-
-        await _aulaAppService.AdicionarAula(aulaViewModel);
+        await _cursoAppService.AdicionarAula(aulaViewModel);
         return CustomResponse(aulaViewModel);
     }
 }
