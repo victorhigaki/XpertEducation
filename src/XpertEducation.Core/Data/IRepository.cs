@@ -2,7 +2,7 @@
 
 namespace XpertEducation.Core.Data;
 
-public interface IRepository<T> : IDisposable where T : IAggregateRoot
+public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 {
     IUnitOfWork UnitOfWork { get; }
 }

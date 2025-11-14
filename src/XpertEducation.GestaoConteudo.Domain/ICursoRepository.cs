@@ -4,9 +4,9 @@ namespace XpertEducation.GestaoConteudo.Domain;
 
 public interface ICursoRepository : IRepository<Curso>
 {
-    Task<IEnumerable<Curso>> ObterTodosAsync();
-    Task<Curso?> ObterPorIdAsync(Guid cursoId);
-    Task AdicionarAsync(Curso curso);
+    IEnumerable<Curso> ObterTodos();
+    Curso ObterPorId(Guid cursoId);
+    void Adicionar(Curso curso);
 
-    Task AdicionarAulaAsync(Aula aula);
+    void AdicionarAula(Aula aula);
 }
