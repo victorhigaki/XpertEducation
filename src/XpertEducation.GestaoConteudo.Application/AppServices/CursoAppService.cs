@@ -59,7 +59,7 @@ public class CursoAppService : ICursoAppService
 
     public async Task AdicionarAula(AulaViewModel aulaViewModel)
     {
-        _cursoRepository.AdicionarAula(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
+        _cursoRepository.AdicionarAula(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoProgramatico, aulaViewModel.Material));
         await _cursoRepository.UnitOfWork.Commit();
     }
 

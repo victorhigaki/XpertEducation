@@ -13,6 +13,7 @@ public class Curso : Entity, IAggregateRoot
 
     public Curso(string nome, string conteudoProgramatico, decimal valor)
     {
+        Id = Guid.NewGuid();
         Nome = nome;
         ConteudoProgramatico = conteudoProgramatico;
         Valor = valor;
