@@ -36,7 +36,6 @@ public static class DependencyInjectionConfig
 
         builder.Services.AddScoped<ICursoAppService, CursoAppService>();
         builder.Services.AddScoped<ICursoRepository, CursoRepository>();
-        builder.Services.AddScoped<IAulaAppService, AulaAppService>();
         builder.Services.AddScoped<GestaoConteudoContext>();
 
         builder.Services.AddScoped<IAlunoAppService, AlunoAppService>();

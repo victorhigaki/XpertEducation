@@ -7,13 +7,13 @@ public class Curso : Entity, IAggregateRoot
     public string Nome { get; private set; }
     public string ConteudoProgramatico { get; private set; }
     public decimal Valor { get; private set; }
-
     public ICollection<Aula> Aulas { get; set; }
 
     public Curso() { }
 
     public Curso(string nome, string conteudoProgramatico, decimal valor)
     {
+        Id = Guid.NewGuid();
         Nome = nome;
         ConteudoProgramatico = conteudoProgramatico;
         Valor = valor;
@@ -27,4 +27,5 @@ public class Curso : Entity, IAggregateRoot
         Validacoes.ValidarSeVazio(ConteudoProgramatico, "O campo Nome não pode estar vazio");
         Validacoes.ValidarSeMenorQue(Valor, 1, "O campo Valor não pode ser menor que 1");
     }
+
 }
