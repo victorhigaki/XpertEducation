@@ -39,7 +39,7 @@ public class PagamentoCartaoCreditoFacadeTests
         payPalGateway.Setup(x => x.GetPayPalServiceKey(apiKey, encriptionKey)).Returns(serviceKey);
         var cardHashKey = "cardHashKey";
         payPalGateway.Setup(x => x.GetCardHashKey(serviceKey, It.IsAny<string>())).Returns(cardHashKey);
-        //var orderId = "1234";
+
         payPalGateway.Setup(x => x.CommitTransaction(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<decimal>())).Returns(true);
 
         // Act
