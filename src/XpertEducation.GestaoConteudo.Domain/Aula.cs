@@ -18,7 +18,9 @@ public class Aula : Entity
         CursoId = cursoId;
         Titulo = titulo;
         ConteudoAula = conteudoAula;
-        Material = material;
+
+        if (material is not null)
+            Material = material;
 
         Validar();
     }

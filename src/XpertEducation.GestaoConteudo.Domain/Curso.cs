@@ -7,6 +7,7 @@ public class Curso : Entity, IAggregateRoot
     public string Nome { get; private set; }
     public ConteudoProgramatico ConteudoProgramatico { get; private set; }
     public decimal Valor { get; private set; }
+
     public ICollection<Aula> Aulas { get; set; }
 
     public Curso() { }
@@ -18,6 +19,7 @@ public class Curso : Entity, IAggregateRoot
         ConteudoProgramatico = conteudoProgramatico;
         Valor = valor;
         Aulas = new List<Aula>();
+
         Validar();
     }
 

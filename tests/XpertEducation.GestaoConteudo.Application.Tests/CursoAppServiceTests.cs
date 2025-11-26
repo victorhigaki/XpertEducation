@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Moq;
+﻿using Moq;
 using Moq.AutoMock;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.GestaoConteudo.Application.Extensions;
@@ -12,10 +11,12 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
     [Collection(nameof(CursoCollection))]
     public class CursoAppServiceTests
     {
+        private readonly AutoMocker _mocker;
         readonly CursoTestsFixture _cursoTestsBogus;
 
         public CursoAppServiceTests(CursoTestsFixture cursoTestsFixture)
         {
+            _mocker = new AutoMocker();
             _cursoTestsBogus = cursoTestsFixture;
         }
 
@@ -24,22 +25,41 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
         public async Task CursoAppService_ObterTodos_DeveRetornarCursos()
         {
             // Arrange
-            var mocker = new AutoMocker();
-            var cursoAppService = mocker.CreateInstance<CursoAppService>();
+            var cursoAppService = _mocker.CreateInstance<CursoAppService>();
 
-            mocker.GetMock<ICursoRepository>().Setup(c => c.ObterTodos())
+            _mocker.GetMock<ICursoRepository>().Setup(c => c.ObterTodos())
                 .Returns(_cursoTestsBogus.ObterCursosVariados());
 
             // Act
             var cursos = await cursoAppService.ObterTodos();
 
             // Assert
-            mocker.GetMock<ICursoRepository>().Verify(r => r.ObterTodos(), Times.Once);
+            _mocker.GetMock<ICursoRepository>().Verify(r => r.ObterTodos(), Times.Once);
             Assert.True(cursos.Any());
         }
 
+        [Fact(DisplayName = "Obter Todos Cursos")]
+        [Trait("Categoria", "Gestão de Conteúdos - Curso ObterPorId")]
+        public async Task CursoAppService_ObterPorId_DeveRetornarCurso()
+        {
+            // Arrange
+            var mocker = new AutoMocker();
+            var cursoAppService = mocker.CreateInstance<CursoAppService>();
+            var id = Guid.NewGuid();
+
+            mocker.GetMock<ICursoRepository>().Setup(c => c.ObterPorId(id))
+                .Returns(_cursoTestsBogus.GerarCursos(1).FirstOrDefault());
+
+            // Act
+            var curso = await cursoAppService.ObterPorId(id);
+
+            // Assert
+            mocker.GetMock<ICursoRepository>().Verify(r => r.ObterPorId(id), Times.Once);
+            Assert.True(curso != null);
+        }
+
         [Fact(DisplayName = "Adicionar Curso com Sucesso")]
-        [Trait("Categoria", "Curso Service AutoMock Tests")]
+        [Trait("Categoria", "Gestão de Conteúdos - Curso Adicionar")]
         public async Task CursoService_Adicionar_DeveExecutarComSucesso()
         {
             // Arrange
@@ -50,13 +70,7 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             mocker.GetMock<ICursoRepository>().Setup(c => c.UnitOfWork.Commit()).Returns(Task.FromResult(true));
 
             // Act
-            await cursoAppService.Adicionar(new CursoViewModel
-            {
-                Id = curso.Id,
-                Nome = curso.Nome,
-                ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
-                Valor = curso.Valor
-            });
+            await cursoAppService.Adicionar(curso.ToViewModel());
 
             // Assert
             mocker.GetMock<ICursoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
@@ -64,8 +78,8 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
         }
 
         [Fact(DisplayName = "Adicionar Aula com Sucesso")]
-        [Trait("Categoria", "Curso Service AutoMock Tests")]
-        public async Task CursoService_AdicionarAula_DeveExecutarComSucesso()
+        [Trait("Categoria", "Gestão de Conteúdos - Aula Adicionar")]
+        public async Task CursoAppService_AdicionarAula_DeveExecutarComSucesso()
         {
             // Arrange
             var curso = _cursoTestsBogus.GerarCursoValido();
@@ -80,14 +94,30 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
                 ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
                 Valor = curso.Valor
             });
-            var aula = new Aula(curso.Id, "titulo teste", "conteudo teste");
+            var aula = new Aula(curso.Id, "titulo teste", "conteudo teste", "caminho/arquivoteste.txt");
 
             // Act
+
             await cursoAppService.AdicionarAula(new AulaViewModel { CursoId = aula.CursoId, Titulo = aula.Titulo, ConteudoAula = aula.ConteudoAula });
 
             // Assert
             mocker.GetMock<ICursoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Exactly(2));
             mocker.GetMock<ICursoRepository>().Verify(r => r.AdicionarAula(It.IsAny<Aula>()), Times.Once);
+        }
+
+        [Fact(DisplayName = "Verificar funcionamento do Dispose")]
+        [Trait("Categoria", "Gestão de Conteúdos - Dispose")]
+        public void CursoService_Dispose_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var mocker = new AutoMocker();
+            var cursoAppService = mocker.CreateInstance<CursoAppService>();
+
+            // Act
+            cursoAppService.Dispose();
+
+            // Assert
+            mocker.GetMock<ICursoRepository>().Verify(m => m.Dispose(), Times.Once);
         }
     }
 }

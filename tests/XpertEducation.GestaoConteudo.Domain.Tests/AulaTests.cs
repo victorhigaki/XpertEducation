@@ -17,7 +17,7 @@ namespace XpertEducation.GestaoConteudo.Domain.Tests
             ), 1000);
 
             //Act
-            var aula = new Aula(curso.Id, "Aula 1", "Conteudo 1");
+            var aula = new Aula(curso.Id, "Aula 1", "Conteudo 1", "Material Teste");
 
             // Assert
             Assert.Equal("Aula 1", aula.Titulo);
@@ -36,9 +36,9 @@ namespace XpertEducation.GestaoConteudo.Domain.Tests
             ), 1000);
 
             // Act Assert
-            Assert.Throws<DomainException>(() => new Aula(Guid.Empty, "Aula 1", "Conteudo 1"));
-            Assert.Throws<DomainException>(() => new Aula(curso.Id, "", "Conteudo 1"));
-            Assert.Throws<DomainException>(() => new Aula(curso.Id, "Aula 1", ""));
+            Assert.Throws<DomainException>(() => new Aula(Guid.Empty, "Aula Teste", "Conteudo Teste", "Material Teste"));
+            Assert.Throws<DomainException>(() => new Aula(curso.Id, "", "Conteudo Teste", "Material Teste"));
+            Assert.Throws<DomainException>(() => new Aula(curso.Id, "Aula Teste", "", "Material Teste"));
         }
     }
 }

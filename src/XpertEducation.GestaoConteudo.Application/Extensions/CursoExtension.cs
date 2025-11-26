@@ -11,7 +11,27 @@ public static class CursoExtension
             Id = curso.Id,
             Nome = curso.Nome,
             ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
-            Valor = curso.Valor
+            Valor = curso.Valor,
+            Aulas = curso.Aulas.ToViewModel(),
         };
+    }
+
+    public static IEnumerable<CursoViewModel> ToViewModel(this IEnumerable<Curso> cursos)
+    {
+        return cursos.Select(curso => curso.ToViewModel());
+    }
+
+    public static Curso ToModel(this CursoViewModel curso)
+    {
+        return new Curso(
+            curso.Nome,
+            curso.ConteudoProgramatico.ToModel(),
+            curso.Valor
+        );
+    }
+
+    public static IEnumerable<Curso> ToModel(this IEnumerable<CursoViewModel> cursos)
+    {
+        return cursos.Select(curso => curso.ToModel());
     }
 }

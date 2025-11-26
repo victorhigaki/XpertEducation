@@ -16,6 +16,11 @@ public static class ConteudoProgramaticoExtension
         };
     }
 
+    public static IEnumerable<ConteudoProgramaticoViewModel> ToViewModel(this IEnumerable<ConteudoProgramatico> cursos)
+    {
+        return cursos.Select(curso => curso.ToViewModel());
+    }
+
     public static ConteudoProgramatico ToModel(this ConteudoProgramaticoViewModel curso)
     {
         return new ConteudoProgramatico(
