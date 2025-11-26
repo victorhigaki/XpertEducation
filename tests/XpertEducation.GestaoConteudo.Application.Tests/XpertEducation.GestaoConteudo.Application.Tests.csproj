@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\XpertEducation.GestaoConteudo.Application\XpertEducation.GestaoConteudo.Application.csproj" />
+    <ProjectReference Include="..\..\src\XpertEducation.GestaoConteudo.Domain\XpertEducation.GestaoConteudo.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

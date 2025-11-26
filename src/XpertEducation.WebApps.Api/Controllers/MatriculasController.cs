@@ -79,7 +79,7 @@ public class MatriculasController : BaseController
     }
 
     [HttpGet("obter-aulas")]
-    public async Task<IActionResult> RealizarAula(ObterAulasViewModel obterAulasViewModel)
+    public async Task<IActionResult> RealizarAula()
     {
         var aluno = await _alunoQuery.ObterPorId(UserId);
 
@@ -88,7 +88,6 @@ public class MatriculasController : BaseController
             return BadRequest("Aluno não encontrado");
         }
 
-        //var query = _cursoAppService.ObterPorId(aluno.);
         return CustomResponse();
     }
 

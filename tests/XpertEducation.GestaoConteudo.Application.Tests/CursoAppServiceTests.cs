@@ -60,5 +60,32 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             mocker.GetMock<ICursoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
             mocker.GetMock<ICursoRepository>().Verify(r => r.Adicionar(It.IsAny<Curso>()), Times.Once);
         }
+
+        [Fact(DisplayName = "Adicionar Aula com Sucesso")]
+        [Trait("Categoria", "Curso Service AutoMock Tests")]
+        public async Task CursoService_AdicionarAula_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var curso = _cursoTestsBogus.GerarCursoValido();
+            var mocker = new AutoMocker();
+            var cursoAppService = mocker.CreateInstance<CursoAppService>();
+
+            mocker.GetMock<ICursoRepository>().Setup(c => c.UnitOfWork.Commit()).Returns(Task.FromResult(true));
+            await cursoAppService.Adicionar(new CursoViewModel
+            {
+                Id = curso.Id,
+                Nome = curso.Nome,
+                ConteudoProgramatico = curso.ConteudoProgramatico,
+                Valor = curso.Valor
+            });
+            var aula = new Aula(curso.Id, "titulo teste", "conteudo teste");
+
+            // Act
+            await cursoAppService.AdicionarAula(new AulaViewModel { CursoId = aula.CursoId, Titulo = aula.Titulo, ConteudoProgramatico = curso.ConteudoProgramatico });
+
+            // Assert
+            mocker.GetMock<ICursoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Exactly(2));
+            mocker.GetMock<ICursoRepository>().Verify(r => r.AdicionarAula(It.IsAny<Aula>()), Times.Once);
+        }
     }
 }
