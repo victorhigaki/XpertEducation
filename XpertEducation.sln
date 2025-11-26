@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.GestaoAlunos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.WebApps.Api", "src\XpertEducation.WebApps.Api\XpertEducation.WebApps.Api.csproj", "{2F807245-C135-4287-B7A1-774F36F6997D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.PagamentoFaturamento.Tests", "tests\XpertEducation.PagamentoFaturamento.Domain.Tests\XpertEducation.PagamentoFaturamento.Tests.csproj", "{4D29B9E2-50D1-47D5-2281-854D0E07C1D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.PagamentoFaturamento.Business.Tests", "tests\XpertEducation.PagamentoFaturamento.Domain.Tests\XpertEducation.PagamentoFaturamento.Business.Tests.csproj", "{4D29B9E2-50D1-47D5-2281-854D0E07C1D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpertEducation.PagamentoFaturamento.Business", "src\XpertEducation.PagamentoFaturamento.Business\XpertEducation.PagamentoFaturamento.Business.csproj", "{1804D7B3-EC36-F755-CA2F-12D00C5E280A}"
 EndProject

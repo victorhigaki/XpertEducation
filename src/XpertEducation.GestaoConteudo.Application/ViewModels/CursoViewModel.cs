@@ -3,8 +3,8 @@
 public class CursoViewModel
 {
     public Guid Id { get; set; }
-    public required string Nome { get; set; }
-    public required string ConteudoProgramatico { get; set; }
-    public required decimal Valor { get; set; }
-    public IEnumerable<AulaViewModel>? Aulas { get; set; }
+    public string Nome { get; set; }
+    public ConteudoProgramaticoViewModel ConteudoProgramatico { get; set; }
+    public decimal Valor { get; set; }
+    public IEnumerable<AulaViewModel> Aulas { get; set; }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using XpertEducation.Core.Data;
 using XpertEducation.GestaoConteudo.Domain;
+using XpertEducation.GestaoConteudo.Domain.Repositories;
 
 namespace XpertEducation.GestaoConteudo.Data.Repositories;
 
@@ -15,12 +16,12 @@ public class CursoRepository : ICursoRepository
 
     public IUnitOfWork UnitOfWork => _context;
 
-    public IEnumerable<Curso>? ObterTodos()
+    public IEnumerable<Curso> ObterTodos()
     {
         return _context.Cursos.AsNoTracking().ToList();
     }
 
-    public Curso? ObterPorId(Guid id)
+    public Curso ObterPorId(Guid id)
     {
         return _context.Cursos.AsNoTracking().Include(c => c.Aulas).FirstOrDefault(c => c.Id == id);
     }

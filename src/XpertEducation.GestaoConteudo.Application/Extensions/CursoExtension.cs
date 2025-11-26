@@ -10,7 +10,7 @@ public static class CursoExtension
         return new CursoViewModel {
             Id = curso.Id,
             Nome = curso.Nome,
-            ConteudoProgramatico = curso.ConteudoProgramatico,
+            ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
             Valor = curso.Valor
         };
     }

@@ -1,6 +1,6 @@
 ﻿namespace XpertEducation.PagamentoFaturamento.Domain
 {
-    public class UnitTest1
+    public class PagamentoServiceTests
     {
         [Fact]
         public void Test1()

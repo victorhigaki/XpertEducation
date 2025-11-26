@@ -16,7 +16,7 @@ public class AlunoRepository : IAlunoRepository
 
     public IUnitOfWork UnitOfWork => _context;
 
-    public async Task<Aluno?> ObterPorId(Guid id)
+    public async Task<Aluno> ObterPorId(Guid id)
     {
         return await _context.Alunos.Include(a => a.HistoricoAprendizado).FirstOrDefaultAsync(a => a.Id == id);
     }
@@ -31,7 +31,7 @@ public class AlunoRepository : IAlunoRepository
         _context.Alunos.Update(aluno);
     }
 
-    public async Task<Matricula?> ObterMatriculaPorAlunoId(Guid AlunoId)
+    public async Task<Matricula> ObterMatriculaPorAlunoId(Guid AlunoId)
     {
         var matricula = await _context.Matriculas.FirstOrDefaultAsync(m => m.AlunoId == AlunoId);
         return matricula;
