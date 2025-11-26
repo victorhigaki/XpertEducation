@@ -9,7 +9,12 @@ namespace XpertEducation.GestaoConteudo.Domain.Tests
         public void Aula_DeveCriarAula_DeveEstarValido()
         {
             // Arrange
-            var curso = new Curso("Curso Teste", "Conteudo Teste", 1000);
+            var curso = new Curso("Curso Teste", new ConteudoProgramatico (
+                " Objetivol Teste",
+                "Conteudol Teste",
+                "Metodologial Teste",
+                "Bibliografial Teste"
+            ), 1000);
 
             //Act
             var aula = new Aula(curso.Id, "Aula 1", "Conteudo 1");
@@ -23,7 +28,12 @@ namespace XpertEducation.GestaoConteudo.Domain.Tests
         public void Aula_DeveCriarAula_DeveEstarInvalido()
         {
             // Arrange
-            var curso = new Curso("Curso Teste", "Conteudo Teste", 1000);
+            var curso = new Curso("Curso Teste", new ConteudoProgramatico(
+                " Objetivol Teste",
+                "Conteudol Teste",
+                "Metodologial Teste",
+                "Bibliografial Teste"
+            ), 1000);
 
             // Act Assert
             Assert.Throws<DomainException>(() => new Aula(Guid.Empty, "Aula 1", "Conteudo 1"));

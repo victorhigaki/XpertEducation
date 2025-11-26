@@ -2,8 +2,10 @@
 using Moq;
 using Moq.AutoMock;
 using XpertEducation.GestaoConteudo.Application.AppServices;
+using XpertEducation.GestaoConteudo.Application.Extensions;
 using XpertEducation.GestaoConteudo.Application.ViewModels;
 using XpertEducation.GestaoConteudo.Domain;
+using XpertEducation.GestaoConteudo.Domain.Repositories;
 
 namespace XpertEducation.GestaoConteudo.Application.Tests
 {
@@ -52,7 +54,7 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             {
                 Id = curso.Id,
                 Nome = curso.Nome,
-                ConteudoProgramatico = curso.ConteudoProgramatico,
+                ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
                 Valor = curso.Valor
             });
 
@@ -75,13 +77,13 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             {
                 Id = curso.Id,
                 Nome = curso.Nome,
-                ConteudoProgramatico = curso.ConteudoProgramatico,
+                ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
                 Valor = curso.Valor
             });
             var aula = new Aula(curso.Id, "titulo teste", "conteudo teste");
 
             // Act
-            await cursoAppService.AdicionarAula(new AulaViewModel { CursoId = aula.CursoId, Titulo = aula.Titulo, ConteudoProgramatico = curso.ConteudoProgramatico });
+            await cursoAppService.AdicionarAula(new AulaViewModel { CursoId = aula.CursoId, Titulo = aula.Titulo, ConteudoAula = aula.ConteudoAula });
 
             // Assert
             mocker.GetMock<ICursoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Exactly(2));

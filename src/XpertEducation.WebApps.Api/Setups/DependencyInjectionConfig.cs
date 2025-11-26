@@ -11,7 +11,7 @@ using XpertEducation.GestaoAlunos.Domain.Repositories;
 using XpertEducation.GestaoConteudo.Application.AppServices;
 using XpertEducation.GestaoConteudo.Data;
 using XpertEducation.GestaoConteudo.Data.Repositories;
-using XpertEducation.GestaoConteudo.Domain;
+using XpertEducation.GestaoConteudo.Domain.Repositories;
 using XpertEducation.PagamentoFaturamento.AntiCorruption;
 using XpertEducation.PagamentoFaturamento.Business.Events;
 using XpertEducation.PagamentoFaturamento.Business.Interfaces;

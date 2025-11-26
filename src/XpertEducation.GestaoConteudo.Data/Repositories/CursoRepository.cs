@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using XpertEducation.Core.Data;
 using XpertEducation.GestaoConteudo.Domain;
+using XpertEducation.GestaoConteudo.Domain.Repositories;
 
 namespace XpertEducation.GestaoConteudo.Data.Repositories;
 

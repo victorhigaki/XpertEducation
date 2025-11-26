@@ -1,5 +1,7 @@
-﻿using XpertEducation.GestaoConteudo.Application.ViewModels;
+﻿using XpertEducation.GestaoConteudo.Application.Extensions;
+using XpertEducation.GestaoConteudo.Application.ViewModels;
 using XpertEducation.GestaoConteudo.Domain;
+using XpertEducation.GestaoConteudo.Domain.Repositories;
 
 namespace XpertEducation.GestaoConteudo.Application.AppServices;
 public class CursoAppService : ICursoAppService
@@ -22,8 +24,8 @@ public class CursoAppService : ICursoAppService
             {
                 Id = curso.Id,
                 Nome = curso.Nome,
-                Valor = curso.Valor,                
-                ConteudoProgramatico = curso.ConteudoProgramatico
+                Valor = curso.Valor,
+                ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
             });
         });
 
@@ -38,7 +40,7 @@ public class CursoAppService : ICursoAppService
         {
             Id = curso.Id,
             Nome = curso.Nome,
-            ConteudoProgramatico = curso.ConteudoProgramatico,
+            ConteudoProgramatico = curso.ConteudoProgramatico.ToViewModel(),
             Valor = curso.Valor,
             Aulas = curso.Aulas.Select(a => new AulaViewModel
             {
@@ -50,7 +52,7 @@ public class CursoAppService : ICursoAppService
 
     public async Task<CursoViewModel> Adicionar(CursoViewModel cursoViewModel)
     {
-        Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico, cursoViewModel.Valor);
+        Curso curso = new(cursoViewModel.Nome, cursoViewModel.ConteudoProgramatico.ToModel(), cursoViewModel.Valor);
         _cursoRepository.Adicionar(curso);
         await _cursoRepository.UnitOfWork.Commit();
         cursoViewModel.Id = curso.Id;
@@ -59,7 +61,7 @@ public class CursoAppService : ICursoAppService
 
     public async Task AdicionarAula(AulaViewModel aulaViewModel)
     {
-        _cursoRepository.AdicionarAula(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoProgramatico, aulaViewModel.Material));
+        _cursoRepository.AdicionarAula(new Aula(aulaViewModel.CursoId, aulaViewModel.Titulo, aulaViewModel.ConteudoAula, aulaViewModel.Material));
         await _cursoRepository.UnitOfWork.Commit();
     }
 

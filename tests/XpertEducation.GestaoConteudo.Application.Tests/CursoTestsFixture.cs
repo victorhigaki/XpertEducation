@@ -29,7 +29,12 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             var clientes = new Faker<Curso>("pt_BR")
                 .CustomInstantiator(f => new Curso(
                     f.Commerce.ProductName(),
-                    f.Lorem.Sentence(),
+                    new ConteudoProgramatico(
+                        f.Lorem.Sentence(),
+                        f.Lorem.Paragraph(),
+                        f.Lorem.Paragraph(),
+                        f.Lorem.Paragraph()
+                    ),
                     f.Random.Decimal(1, 9999))
                 );
 

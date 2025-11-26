@@ -1,6 +1,6 @@
 ﻿using XpertEducation.Core.Data;
 
-namespace XpertEducation.GestaoConteudo.Domain;
+namespace XpertEducation.GestaoConteudo.Domain.Repositories;
 
 public interface ICursoRepository : IRepository<Curso>
 {
