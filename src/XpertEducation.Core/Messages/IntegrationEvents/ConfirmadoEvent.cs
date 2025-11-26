@@ -1,6 +1,4 @@
-﻿using XpertEducation.Core.Messages.IntegrationEvents;
-
-namespace XpertEducation.Core.Messages.NewFolder;
+﻿namespace XpertEducation.Core.Messages.IntegrationEvents;
 
 public class ConfirmadoEvent : IntegrationEvent
 {

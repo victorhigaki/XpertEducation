@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>00ec4979-1239-40c1-a6c0-79016972fb54</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -34,7 +34,6 @@
     <ProjectReference Include="..\XpertEducation.GestaoConteudo.Application\XpertEducation.GestaoConteudo.Application.csproj" />
     <ProjectReference Include="..\XpertEducation.GestaoConteudo.Data\XpertEducation.GestaoConteudo.Data.csproj" />
     <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.AntiCorruption\XpertEducation.PagamentoFaturamento.AntiCorruption.csproj" />
-    <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Application\XpertEducation.PagamentoFaturamento.Business.csproj" />
     <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Business\XpertEducation.PagamentoFaturamento.Business.csproj" />
     <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Data\XpertEducation.PagamentoFaturamento.Data.csproj" />
   </ItemGroup>
