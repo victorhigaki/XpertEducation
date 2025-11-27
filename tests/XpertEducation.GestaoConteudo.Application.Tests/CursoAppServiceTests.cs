@@ -28,7 +28,7 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             var cursoAppService = _mocker.CreateInstance<CursoAppService>();
 
             _mocker.GetMock<ICursoRepository>().Setup(c => c.ObterTodos())
-                .Returns(_cursoTestsBogus.ObterCursosVariados());
+                .Returns(Task.FromResult(_cursoTestsBogus.ObterCursosVariados()));
 
             // Act
             var cursos = await cursoAppService.ObterTodos();
@@ -48,7 +48,7 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             var id = Guid.NewGuid();
 
             mocker.GetMock<ICursoRepository>().Setup(c => c.ObterPorId(id))
-                .Returns(_cursoTestsBogus.GerarCursos(1).FirstOrDefault());
+                .Returns(Task.FromResult(_cursoTestsBogus.GerarCursos(1).FirstOrDefault()));
 
             // Act
             var curso = await cursoAppService.ObterPorId(id);

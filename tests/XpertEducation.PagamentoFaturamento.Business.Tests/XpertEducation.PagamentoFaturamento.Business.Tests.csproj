@@ -22,7 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\XpertEducation.PagamentoFaturamento.AntiCorruption\XpertEducation.PagamentoFaturamento.AntiCorruption.csproj" />
     <ProjectReference Include="..\..\src\XpertEducation.PagamentoFaturamento.Business\XpertEducation.PagamentoFaturamento.Business.csproj" />
-    <ProjectReference Include="..\..\src\XpertEducation.PagamentoFaturamento.Data\XpertEducation.PagamentoFaturamento.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

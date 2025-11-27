@@ -10,7 +10,7 @@ public class PagamentoCartaoCreditoFacadeTests
 {
     [Fact(DisplayName = "RealizarPagamento")]
     [Trait("Categoria", "PagamentoFaturamento - PagamentoCartaoCreditoFacade")]
-    public async Task PagamentoCartaoCreditoFacade_RealizarPagamento_DeveRealizarComSucesso()
+    public void PagamentoCartaoCreditoFacade_RealizarPagamento_DeveRealizarComSucesso()
     {
         // Arrange
         var mocker = new AutoMocker();

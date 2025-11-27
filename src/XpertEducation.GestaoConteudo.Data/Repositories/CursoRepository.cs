@@ -16,14 +16,14 @@ public class CursoRepository : ICursoRepository
 
     public IUnitOfWork UnitOfWork => _context;
 
-    public IEnumerable<Curso> ObterTodos()
+    public async Task<IEnumerable<Curso>> ObterTodos()
     {
-        return _context.Cursos.AsNoTracking().ToList();
+        return await _context.Cursos.AsNoTracking().ToListAsync();
     }
 
-    public Curso ObterPorId(Guid id)
+    public async Task<Curso> ObterPorId(Guid id)
     {
-        return _context.Cursos.AsNoTracking().Include(c => c.Aulas).FirstOrDefault(c => c.Id == id);
+        return await _context.Cursos.AsNoTracking().Include(c => c.Aulas).FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public void Adicionar(Curso curso)

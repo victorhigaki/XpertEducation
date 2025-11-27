@@ -15,17 +15,14 @@ public class CursoAppService : ICursoAppService
 
     public async Task<IEnumerable<CursoViewModel>> ObterTodos()
     {
-        var cursos = _cursoRepository.ObterTodos();
-
-        List<CursoViewModel> cursosViewModel = cursos.ToViewModel().ToList();
-        return cursosViewModel;
+        var cursos = await _cursoRepository.ObterTodos();
+        return cursos.ToViewModel();
     }
 
     public async Task<CursoViewModel> ObterPorId(Guid id)
     {
-        var curso = _cursoRepository.ObterPorId(id);
+        var curso = await _cursoRepository.ObterPorId(id);
         if (curso == null) return null;
-
         return curso.ToViewModel();
     }
 

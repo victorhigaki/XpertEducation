@@ -15,21 +15,18 @@ namespace XpertEducation.WebApps.Api.Controllers;
 [Authorize(Roles = "Aluno")]
 public class MatriculasController : BaseController
 {
-    private readonly IAlunoAppService _alunoAppService;
     private readonly IAlunoQuery _alunoQuery;
     private readonly ICursoAppService _cursoAppService;
     private readonly IMediatorHandler _mediatorHandler;
     private readonly IMatriculaQueries _matriculaQueries;
 
-    public MatriculasController(IAlunoAppService alunoAppService,
-        INotificationHandler<DomainNotification> notifications,
+    public MatriculasController(INotificationHandler<DomainNotification> notifications,
         ICursoAppService cursoAppService,
         IMediatorHandler mediatorHandler,
         IAppIdentityUser appIdentityUser,
         IMatriculaQueries matriculaQueries,
         IAlunoQuery alunoQuery) : base(notifications, mediatorHandler, appIdentityUser)
     {
-        _alunoAppService = alunoAppService;
         _cursoAppService = cursoAppService;
         _mediatorHandler = mediatorHandler;
         _matriculaQueries = matriculaQueries;
