@@ -1,7 +1,6 @@
 ﻿using Moq;
 using Moq.AutoMock;
 using XpertEducation.PagamentoFaturamento.Business.Enums;
-using XpertEducation.PagamentoFaturamento.Business.Interfaces;
 using XpertEducation.PagamentoFaturamento.Business.Models;
 
 namespace XpertEducation.PagamentoFaturamento.AntiCorruption.Tests;

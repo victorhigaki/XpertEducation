@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using XpertEducation.Core.Communication.Mediator;
 using XpertEducation.Core.Messages.Notifications;
 using XpertEducation.WebApps.Api.Extensions;
+using XpertEducation.WebApps.Api.Models;
 
 namespace XpertEducation.WebApps.Api.Controllers;
 
@@ -28,10 +29,10 @@ public abstract class BaseController : ControllerBase
     {
         if (OperacaoValida())
         {
-            return Ok(new
+            return Ok(new CustomResponseViewModel
             {
-                success = true,
-                data = result
+                Success = true,
+                Data = result
             });
         }
 

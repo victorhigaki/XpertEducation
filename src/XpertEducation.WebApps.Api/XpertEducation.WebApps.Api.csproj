@@ -38,4 +38,10 @@
     <ProjectReference Include="..\XpertEducation.PagamentoFaturamento.Data\XpertEducation.PagamentoFaturamento.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.Testing.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

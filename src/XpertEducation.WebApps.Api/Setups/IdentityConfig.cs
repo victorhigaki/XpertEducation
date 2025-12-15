@@ -15,7 +15,7 @@ public static class IdentityConfig
 {
     public static WebApplicationBuilder AddIdentityConfiguration(this WebApplicationBuilder builder)
     {
-        if (builder.Environment.IsDevelopment())
+        if (builder.Environment.IsDevelopment() || builder.Environment.IsEnvironment("Testing"))
         {
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {

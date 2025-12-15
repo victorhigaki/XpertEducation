@@ -1,43 +1,49 @@
 using XpertEducation.WebApps.Api.Setups;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-
-builder.AddIdentityConfiguration()
-       .AddSwaggerConfig()
-       .ResolveDependencies();
-
-builder.Services.AddMediatR(cfg =>
+public class Program
 {
-    cfg.LicenseKey = builder.Configuration["LuckyPenny"];
-    cfg.RegisterServicesFromAssemblyContaining<Program>();
-});
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+        // Add services to the container.
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseCors("Development");
+        builder.Services.AddControllers();
+
+        builder.AddIdentityConfiguration()
+               .AddSwaggerConfig()
+               .ResolveDependencies();
+
+        builder.Services.AddMediatR(cfg =>
+        {
+            cfg.LicenseKey = builder.Configuration["LuckyPenny"];
+            cfg.RegisterServicesFromAssemblyContaining<Program>();
+        });
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            app.UseCors("Development");
+        }
+        else
+        {
+            app.UseCors("Production");
+        }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.UseDbMigrationHelper();
+
+        app.Run();
+    }
 }
-else
-{
-    app.UseCors("Production");
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.UseDbMigrationHelper();
-
-app.Run();

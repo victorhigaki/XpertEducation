@@ -1,6 +1,6 @@
 ﻿namespace XpertEducation.GestaoConteudo.Application.ViewModels;
 
-public class CursoViewModel
+public record CursoViewModel
 {
     public Guid Id { get; set; }
     public string Nome { get; set; }

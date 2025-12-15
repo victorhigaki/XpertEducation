@@ -35,7 +35,7 @@ public static class DbMigrationHelpers
         var gestaoConteudoContext = scope.ServiceProvider.GetRequiredService<GestaoConteudoContext>();
         var pagamentoContext = scope.ServiceProvider.GetRequiredService<PagamentoContext>();
 
-        if (env.IsDevelopment())
+        if (env.IsDevelopment() || env.IsEnvironment("Testing"))
         {
             await contextId.Database.MigrateAsync();
             await alunosContext.Database.MigrateAsync();
