@@ -63,16 +63,17 @@ A estrutura do projeto é organizada da seguinte forma:
 ## **5. Funcionalidades Implementadas**
 
 #EDITAR 
-- **CRUD para Posts e Comentários:** Permite criar, editar, visualizar e excluir categoria e produto.
-- **Autenticação e Autorização:** Diferenciação entre usuários comuns e administradores.
-- **API RESTful:** Exposição de endpoints para operações CRUD via API.
 - **Documentação da API:** Documentação automática dos endpoints da API utilizando Swagger.
+- **Autenticação e Autorização:** Diferenciação entre alunos comuns e administradores.
+- **Testes Unitários:"" Documentação e garantia de funcionamento do sistema.
+- **CQRS:** Aplicação do padrão Command Query Responsability Segregation
+- **API RESTful:** Exposição de endpoints para operações via API.
 
 ## **6. Como Executar o Projeto**
 
 ### **Pré-requisitos**
 
-- .NET SDK 8.0 ou superior
+- .NET SDK 9.0 ou superior
 - SQL Server / SQLite
 - Visual Studio 2022 ou superior (ou qualquer IDE de sua preferência)
 - Git
@@ -87,12 +88,7 @@ A estrutura do projeto é organizada da seguinte forma:
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
    - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
 
-3. **Executar a Aplicação MVC:**
-   - `cd src/XpertEducation.Mvc/`
-   - `dotnet run`
-   - Acesse a aplicação em: http://localhost:5000
-
-4. **Executar a API:**
+3. **Executar a API:**
    - `cd src/XpertEducation.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: http://localhost:5001/swagger
