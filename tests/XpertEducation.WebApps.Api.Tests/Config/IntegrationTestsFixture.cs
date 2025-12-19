@@ -9,7 +9,6 @@ public class IntegrationTestsFixtureCollection : ICollectionFixture<IntegrationT
 {
     // A fixture será construída pelo xUnit e injetada aqui.
     public IntegrationTestsFixture<Program> TestsFixture { get; private set; }
-
 }
 
 public class IntegrationTestsFixture<Program> : IDisposable where Program : class
@@ -31,7 +30,7 @@ public class IntegrationTestsFixture<Program> : IDisposable where Program : clas
         };
 
         Factory = new LojaAppFactory<Program>();
-        Client = Factory.CreateClient();
+        Client = Factory.CreateClient(clientOptions);
     }
 
     public async Task RealizarLoginApi()

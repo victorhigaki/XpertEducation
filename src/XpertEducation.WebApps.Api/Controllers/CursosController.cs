@@ -13,7 +13,7 @@ public class CursosController : BaseController
 {
     private readonly ICursoAppService _cursoAppService;
 
-    public CursosController(ICursoAppService cursoAppService, 
+    public CursosController(ICursoAppService cursoAppService,
                             INotificationHandler<DomainNotification> notifications,
                             IMediatorHandler mediatorHandler,
                             IAppIdentityUser appIdentityUser) : base(notifications, mediatorHandler, appIdentityUser)
@@ -31,7 +31,15 @@ public class CursosController : BaseController
     [HttpPost]
     public async Task<IActionResult> AdicionarCursoAsync(CursoViewModel cursoViewModel)
     {
-        var result = await _cursoAppService.Adicionar(cursoViewModel);
-        return CustomResponse(result);
+        try
+        {
+            var result = await _cursoAppService.Adicionar(cursoViewModel);
+            return CustomResponse(result);
+        }
+        catch (Exception)
+        {
+
+            return CustomResponse();
+        }
     }
 }

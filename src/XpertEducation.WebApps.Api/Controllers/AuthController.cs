@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using XpertEducation.Core.Communication.Mediator;
+using XpertEducation.Core.Messages;
 using XpertEducation.GestaoAlunos.Application.AppServices;
 using XpertEducation.GestaoAlunos.Application.ViewModels;
 using XpertEducation.WebApps.Api.Extensions;
@@ -47,16 +48,25 @@ public class AuthController : BaseController
             EmailConfirmed = true
         };
 
-        var result = await _userManager.CreateAsync(user, registrarUsuario.Password);
-
-        if (result.Succeeded)
+        try
         {
-            await AddAluno(user);
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            return CustomResponse(await GerarJwt(registrarUsuario.Email));
-        }
+            var result = await _userManager.CreateAsync(user, registrarUsuario.Password);
 
-        return CustomResponse("Falha ao registrar o usuário");
+            if (result.Succeeded)
+            {
+                await AddAluno(user);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return CustomResponse(await GerarJwt(registrarUsuario.Email));
+            }
+
+            NotificarErro("500", result.Errors.ToString());
+
+        }
+        catch (Exception e)
+        {
+            NotificarErro("500", e.Message);
+        }
+        return CustomResponse();
     }
 
     [HttpPost("login")]
@@ -71,7 +81,8 @@ public class AuthController : BaseController
             return CustomResponse(await GerarJwt(loginUser.Email));
         }
 
-        return CustomResponse("Usuário ou senha incorreta");
+        NotificarErro("400", "Usuário ou senha incorreta");
+        return CustomResponse();
     }
 
     private async Task<string> GerarJwt(string email)

@@ -53,7 +53,6 @@ namespace XpertEducation.GestaoConteudo.Application.Tests
             return CursoAppService;
         }
 
-
         public void Dispose()
         {
         }

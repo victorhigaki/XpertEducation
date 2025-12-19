@@ -8,7 +8,7 @@ public class Curso : Entity, IAggregateRoot
     public ConteudoProgramatico ConteudoProgramatico { get; private set; }
     public decimal Valor { get; private set; }
 
-    public ICollection<Aula> Aulas { get; set; }
+    public ICollection<Aula> Aulas { get; private set; }
 
     public Curso() { }
 

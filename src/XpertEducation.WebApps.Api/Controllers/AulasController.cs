@@ -23,7 +23,7 @@ public class AulasController : BaseController
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost("cadastro-aula")]
+    [HttpPost]
     public async Task<IActionResult> AdicionarAula(AulaViewModel aulaViewModel)
     {
         var curso = _cursoAppService.ObterPorId(aulaViewModel.CursoId);
