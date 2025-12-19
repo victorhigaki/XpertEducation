@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using XpertEducation.GestaoAlunos.Data;
+using XpertEducation.GestaoAlunos.Domain.Models;
 using XpertEducation.GestaoConteudo.Data;
 using XpertEducation.PagamentoFaturamento.Data;
 using XpertEducation.WebApps.Api.Data;
@@ -43,10 +44,10 @@ public static class DbMigrationHelpers
             await pagamentoContext.Database.MigrateAsync();
         }
 
-        await EnsureSeedProducts(contextId);
+        await EnsureSeedProducts(contextId, alunosContext);
     }
 
-    public static async Task EnsureSeedProducts(ApplicationDbContext contextId)
+    public static async Task EnsureSeedProducts(ApplicationDbContext contextId, GestaoAlunosContext context)
     {
         if (contextId.Users.Any())
             return;
@@ -66,8 +67,25 @@ public static class DbMigrationHelpers
             EmailConfirmed = true,
             SecurityStamp = Guid.NewGuid().ToString()
         });
+        var userId = Guid.NewGuid();
+        await contextId.Users.AddAsync(new IdentityUser
+        {
+            Id = userId.ToString(),
+            UserName = "test@test.com",
+            NormalizedUserName = "TEST@TEST.COM",
+            Email = "test@test.com",
+            NormalizedEmail = "TEST@TEST.COM",
+            AccessFailedCount = 0,
+            LockoutEnabled = false,
+            PasswordHash = "AQAAAAIAAYagAAAAEJBy+Pk+9pYc6ztX5gYC9F4art+lPISTgIOR1Q0XUHiI3YtYPdg9U+xkF5ZA53Qs8g==", // Teste@12345
+            TwoFactorEnabled = false,
+            ConcurrencyStamp = Guid.NewGuid().ToString(),
+            EmailConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString()
+        });
 
         var adminRoleId = Guid.NewGuid().ToString();
+        var userRoleId = Guid.NewGuid().ToString();
         await contextId.Roles.AddRangeAsync(
             new IdentityRole
             {
@@ -78,7 +96,7 @@ public static class DbMigrationHelpers
             },
              new IdentityRole
              {
-                 Id = Guid.NewGuid().ToString(),
+                 Id = userRoleId,
                  Name = "Aluno",
                  NormalizedName = "ALUNO",
                  ConcurrencyStamp = Guid.NewGuid().ToString()
@@ -88,12 +106,20 @@ public static class DbMigrationHelpers
             RoleId = adminRoleId,
             UserId = adminId.ToString()
         });
+        await contextId.UserRoles.AddAsync(new IdentityUserRole<string>
+        {
+            RoleId = userRoleId,
+            UserId = userId.ToString()
+        });
 
         await contextId.Admins.AddAsync(new Admin
         {
             Id = adminId
         });
 
+        await context.Alunos.AddAsync(new Aluno(userId));
+
         await contextId.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 }
