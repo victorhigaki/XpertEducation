@@ -22,4 +22,9 @@ public class Aluno : Entity, IAggregateRoot
     {
         HistoricoAprendizado.Add(new HistoricoAprendizado(Id, aulaId));
     }
+
+    public void AdicionarCertificado(Certificado certificado)
+    {
+        Certificados.Add(certificado);
+    }
 }

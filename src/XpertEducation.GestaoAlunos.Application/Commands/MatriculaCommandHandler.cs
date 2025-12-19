@@ -132,6 +132,8 @@ public class MatriculaCommandHandler :
 
         _alunoRepository.AtualizarMatricula(matricula);
 
+        aluno.AdicionarCertificado(new Certificado(aluno.Id, message.CursoId, DateTime.Now));
+
         return await _alunoRepository.UnitOfWork.Commit();
     }
 
